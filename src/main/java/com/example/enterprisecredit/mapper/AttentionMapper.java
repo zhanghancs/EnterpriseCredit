@@ -1,6 +1,6 @@
 package com.example.enterprisecredit.mapper;
 
-import com.example.enterprisecredit.entity.Attentionlist;
+import com.example.enterprisecredit.entity.Attention;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author zhufu
  * @since 2023-08-28
  */
-public interface AttentionlistMapper extends BaseMapper<Attentionlist> {
+public interface AttentionMapper extends BaseMapper<Attention> {
 
 }

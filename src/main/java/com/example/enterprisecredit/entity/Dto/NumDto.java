@@ -1,13 +1,16 @@
 package com.example.enterprisecredit.entity.Dto;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName("Income")
-public class Income {
-
+@TableName("num")
+public class NumDto {
+    public NumDto() {
+        industry = "无";
+        num = 0;
+    }
     String industry;
 
-
-    double income;
+    int num;
 }

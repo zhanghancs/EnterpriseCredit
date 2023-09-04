@@ -1,9 +1,10 @@
 package com.example.enterprisecredit.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.enterprisecredit.entity.Dto.Income;
-import com.example.enterprisecredit.entity.Dto.Industry;
-import com.example.enterprisecredit.entity.Dto.Profit;
+import com.example.enterprisecredit.entity.Dto.IncomeDto;
+import com.example.enterprisecredit.entity.Dto.MarketDto;
+import com.example.enterprisecredit.entity.Dto.ProfitDto;
+import com.example.enterprisecredit.entity.Dto.NumDto;
 import com.example.enterprisecredit.entity.Province;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,14 +16,15 @@ import java.util.Map;
 @Mapper
 public interface ProvinceMapper extends BaseMapper<Province> {
 
-    @Select("select * from industry where area = #{area} order by number desc")
-    List<Industry> queryAllIndustry(String area);
+    @Select("select * from num where area = #{area} order by num desc")
+    List<NumDto> queryAllNum(String area);
     @Select("select * from profit where area = #{area} order by profit desc")
-    List<Profit> queryAllProfit(String area);
-
+    List<ProfitDto> queryAllProfit(String area);
     @Select("select * from income where area = #{area} order by income desc")
-    List<Income> queryAllIncome(String area);
-    @Select("${sql}")
-    public List<Map<String,Object>> queryUsersByCondition(@Param("sql") String sql);
+    List<IncomeDto> queryAllIncome(String area);
+//    @Select("${sql}")
+//    public List<Map<String,Object>> queryUsersByCondition(@Param("sql") String sql);
 
+    @Select("select * from market")
+    List<MarketDto> queryAllMarket();
 }

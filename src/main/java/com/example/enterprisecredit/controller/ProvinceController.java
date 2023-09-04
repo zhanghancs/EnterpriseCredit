@@ -1,6 +1,7 @@
 package com.example.enterprisecredit.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.example.enterprisecredit.entity.Dto.MarketDto;
 import com.example.enterprisecredit.entity.Province;
 import com.example.enterprisecredit.service.impl.ProvinceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,25 +37,24 @@ public class ProvinceController {
             formattedProvince.put("number", province.getNumber());
             formattedProvince.put("profit", province.getProfit());
             formattedProvince.put("income", province.getIncome());
-            formattedProvince.put("topTen", province.formatTopTen());
-            formattedProvince.put("toptenprofit",province.formatTopTenProfit());
-            formattedProvince.put("toptenincome",province.formatTopTenIncome());
+            formattedProvince.put("topTenNum", province.getTopTenNum());
+            formattedProvince.put("topTenProfit",province.getTopTenProfitDto());
+            formattedProvince.put("topTenIncome",province.getTopTenIncomeDto());
             formattedProvinceList.add(formattedProvince);
         }
 
         result.put("data", formattedProvinceList);
-        // result.put("data", 2);
         return JSON.toJSONString(result);
 
     }
-    @GetMapping("/market")
+    @GetMapping("/queryAllMarket")
     public String market() {
         Map<String,Object> result = new HashMap<String,Object>();
         try{
-            List<Map<String,Object>> orderList = provinceService.market();
-            if(orderList!=null && orderList.size()>0){ //检索到
+            List<MarketDto> marketList = provinceService.queryAllMarket();
+            if(marketList!=null && marketList.size()>0){ //检索到
                 result.put("status", 200);
-                result.put("data",orderList);
+                result.put("data",marketList);
             }else{ //没有检索"到
                 result.put("status", -1);
                 result.put("errorMsg","没有检索到信息");

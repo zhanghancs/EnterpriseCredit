@@ -10,21 +10,21 @@ public class Publicinfohelper {
     {
 
         List<String> result = new ArrayList<>();
-        result.add(publicinfo.getCreditcode());
-        for (String part : publicinfo.getAdminliceninfo().split("\\|")) {
+        result.add(publicinfo.getCreditCode());
+        for (String part : publicinfo.getAdminLicenInfo().split("\\|")) {
             result.add(part);
             result.add(""); // Add an empty string after each part
         }
-        for (String part : publicinfo.getAdminpenaltyinfo().split("\\|")) {
+        for (String part : publicinfo.getAdminPenaltyInfo().split("\\|")) {
             result.add(part);
             result.add(""); // Add an empty string after each part
         }
 
-        for (String part : publicinfo.getBadadminsuper().split("\\|")) {
+        for (String part : publicinfo.getBadAdminSuper().split("\\|")) {
             result.add(part);
             result.add(""); // Add an empty string after each part
         }
-        for (String part : publicinfo.getAdmincominfo().split("\\|")) {
+        for (String part : publicinfo.getAdminCominfo().split("\\|")) {
             result.add(part);
             result.add(""); // Add an empty string after each part
         }
