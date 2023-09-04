@@ -1,6 +1,7 @@
 package com.example.enterprisecredit.controller;
 
 
+import com.alibaba.druid.sql.parser.Keywords;
 import com.alibaba.fastjson.JSON;
 import com.example.enterprisecredit.entity.Enterprisebasicinfo;
 import com.example.enterprisecredit.service.impl.EnterprisebasicinfoServiceImpl;
@@ -91,4 +92,22 @@ public class EnterprisebasicinfoController {
         }
         return JSON.toJSONString(result);
     }
+    @RequestMapping(value="/searchEnterprisesByKeyword")
+    public String searchEnterprisesByKeyword( String Keyword ,int Page ,int PageSize){
+        Map<String,Object> result = new HashMap<String,Object>();
+        try{
+            //1)调用userService的 查询单个对象的方法
+            List<Enterprisebasicinfo> resultList  = enterprisebasicinfoService.searchEnterprisesByKeyword(Keyword,Page,PageSize);
+            result.put("status",200);
+
+            result.put("data",resultList);
+
+        }catch (Exception ex){
+            result.put("status",500);
+            result.put("errorMsg","出现异常:"+ex.getMessage());
+            ex.printStackTrace();
+        }
+        return JSON.toJSONString(result);
+    }
+
 }

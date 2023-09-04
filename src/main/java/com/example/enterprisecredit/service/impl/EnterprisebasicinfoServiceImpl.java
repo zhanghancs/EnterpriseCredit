@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -111,5 +112,49 @@ public class EnterprisebasicinfoServiceImpl extends ServiceImpl<Enterprisebasici
         return enterprisebasicinfoList;
 
     }
+    @Override
+    public List<Enterprisebasicinfo> searchEnterprisesByKeyword(String keyword, int pageNo, int pageSize) {
+        // 计算分页的起始位置
+        int offset = (pageNo - 1) * pageSize;
+
+        // 1) 封装查询条件 QueryWrapper
+        List<Enterprisebasicinfo> results = new ArrayList<>();
+
+        // 1) 使用creditCode属性进行模糊搜索
+        QueryWrapper<Enterprisebasicinfo> creditCodeWrapper = new QueryWrapper<>();
+        creditCodeWrapper.like("stockCode", "%" + keyword + "%");
+        creditCodeWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
+        List<Enterprisebasicinfo> enterprisesByCreditCode = enterprisebasicinfoMapper.selectList(creditCodeWrapper);
+
+        // 2) 如果creditCode查询结果不为空，将其添加到结果列表中
+        if (!enterprisesByCreditCode.isEmpty()) {
+            results.addAll(enterprisesByCreditCode);
+        } else {
+            // 3) 使用name属性进行模糊搜索
+            QueryWrapper<Enterprisebasicinfo> nameWrapper = new QueryWrapper<>();
+            nameWrapper.like("name", "%" + keyword + "%");
+            nameWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
+            List<Enterprisebasicinfo> enterprisesByName = enterprisebasicinfoMapper.selectList(nameWrapper);
+
+            // 4) 如果name查询结果不为空，将其添加到结果列表中
+            if (!enterprisesByName.isEmpty()) {
+                results.addAll(enterprisesByName);
+            } else {
+                // 5) 使用shortname属性进行模糊搜索
+                QueryWrapper<Enterprisebasicinfo> shortnameWrapper = new QueryWrapper<>();
+                shortnameWrapper.like("shortname", "%" + keyword + "%");
+                shortnameWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
+                List<Enterprisebasicinfo> enterprisesByShortname = enterprisebasicinfoMapper.selectList(shortnameWrapper);
+
+                // 6) 如果shortname查询结果不为空，将其添加到结果列表中
+                if (!enterprisesByShortname.isEmpty()) {
+                    results.addAll(enterprisesByShortname);
+                }
+            }
+        }
+
+        return results;
+    }
+
 
 }

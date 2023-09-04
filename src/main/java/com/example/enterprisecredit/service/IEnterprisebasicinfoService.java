@@ -21,4 +21,5 @@ public interface IEnterprisebasicinfoService extends IService<Enterprisebasicinf
     List<String> getIndustry();
     List <Enterprisebasicinfo> getby( String area,String transferMode,String industry);
     List <Enterprisebasicinfo> gettwo( String creditCode1,String creditCode2);
+    public List<Enterprisebasicinfo> searchEnterprisesByKeyword(String Keyword , int pageNo, int pageSizeS);
 }
