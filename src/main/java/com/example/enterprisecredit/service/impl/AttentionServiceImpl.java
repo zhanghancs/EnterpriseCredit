@@ -37,4 +37,18 @@ public class AttentionServiceImpl extends ServiceImpl<AttentionMapper, Attention
         wrapper.eq("username", username);
         return attentionMapper.selectList(wrapper);
     }
+
+    public int status(String name ,int stockcode) {
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("username", name);
+        List<Attention> attentionList = attentionMapper.selectList(wrapper);
+
+        for (Attention attention : attentionList) {
+            if (attention.getStockCode() == stockcode) {
+                return 0;
+            }
+
+        }
+        return 1;
+    }
 }

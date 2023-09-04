@@ -4,6 +4,7 @@ package com.example.enterprisecredit.controller;
 import com.alibaba.druid.sql.parser.Keywords;
 import com.alibaba.fastjson.JSON;
 import com.example.enterprisecredit.entity.Enterprisebasicinfo;
+import com.example.enterprisecredit.service.impl.AttentionServiceImpl;
 import com.example.enterprisecredit.service.impl.EnterprisebasicinfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,8 @@ import java.util.Map;
 public class EnterprisebasicinfoController {
     @Autowired
     EnterprisebasicinfoServiceImpl enterprisebasicinfoService;
+    @Autowired
+    AttentionServiceImpl attentionService;
     @RequestMapping(value="/getEnterprisebasicinfoById")
     public String queryUserById(String creditCode){
         Map<String,Object> result = new HashMap<String,Object>();
@@ -109,5 +112,28 @@ public class EnterprisebasicinfoController {
         }
         return JSON.toJSONString(result);
     }
+    @RequestMapping(value="/searchEnterprisePlus")
+    public String searchEnterprisePlus( String creditCode ,String name ,int stockcode){
+        Map<String,Object> result = new HashMap<String,Object>();
+        try{
+            //1)调用userService的 查询单个对象的方法
+            Enterprisebasicinfo enterprisebasicinfo = enterprisebasicinfoService.getEnterpriseById(creditCode);
 
+            result.put("status",200);
+            result.put("data",enterprisebasicinfo);
+            int flag = attentionService.status(name ,stockcode);
+            if(flag ==1)
+            {
+                result.put("flag",0);
+            }
+            else {
+                result.put("flag",1);
+            }
+        }catch (Exception ex){
+            result.put("status",500);
+            result.put("msg","出现异常:"+ex.getMessage());
+            ex.printStackTrace();
+        }
+        return JSON.toJSONString(result);
+    }
 }
