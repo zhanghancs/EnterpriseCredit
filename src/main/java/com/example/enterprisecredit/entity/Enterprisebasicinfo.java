@@ -97,33 +97,33 @@ public class Enterprisebasicinfo implements Serializable {
     private String stockholder10;
 
     @TableField("income")
-    private double income;
+    private String income;
 
     @TableField("profit")
-    private double profit;
+    private String profit;
 
     @TableField("netprofit")
-    private double netProfit;
+    private String netProfit;
 
     @TableField("nondistributeprofit")
-    private double nonDistributeProfit;
+    private String nonDistributeProfit;
 
     @TableField("totalliability")
-    private double totalLiability;
+    private String totalLiability;
 
     @TableField("totalassets")
-    private double totalAssets;
+    private String totalAssets;
 
     @TableField("netassets")
-    private double netAssets;
+    private String netAssets;
 
     @TableField("earningspershare")
-    private double earningsPerShare;
+    private String earningsPerShare;
 
     @TableField("netAssetspershare")
-    private double netAssetsPerShare;
+    private String netAssetsPerShare;
 
     @TableField("netassetsyield")
-    private double netAssetsYield;
+    private String netAssetsYield;
 
 }

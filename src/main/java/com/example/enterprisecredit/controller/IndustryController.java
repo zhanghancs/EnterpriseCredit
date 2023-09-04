@@ -27,12 +27,12 @@ import java.util.Map;
 public class IndustryController {
     @Autowired
     IndustryServiceImpl industryService;
-    @RequestMapping(value="/query")
-    public String queryAll(int type){
+    @RequestMapping(value="/get")
+    public String get(String first ,String last){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List<Industry> resultList  = industryService.queryAll(type);
+            List<Industry> resultList  = industryService.findAll(first,last);
             List<String> industryNames = new ArrayList<>();
             for (Industry industry : resultList) {
                 industryNames.add(industry.getIndustry());
