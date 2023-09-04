@@ -24,15 +24,15 @@ public class Publicinfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @TableField("creditcode")
-    private String creditcode;
+    private String creditCode;
     @TableField("adminliceninfo")
-    private String adminliceninfo;
+    private String adminLicenInfo;
     @TableField("adminpenaltyinfo")
-    private String adminpenaltyinfo;
+    private String adminPenaltyInfo;
     @TableField("badadminsuper")
-    private String badadminsuper;
+    private String badAdminSuper;
     @TableField("admincominfo")
-    private String admincominfo;
+    private String adminCominfo;
     @TableField("qualityinspecinfo")
     private String qualityinspecinfo;
     @TableField("webfilinfo")

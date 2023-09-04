@@ -6,13 +6,15 @@ import lombok.Data;
 
 @Data
 @TableName("profit")
-public class Profit {
+public class ProfitDto {
+    public ProfitDto() {
+        industry = "无";
+        profit = 0;
+    }
 
     @TableField("industry")
     String industry;
 
     @TableField("profit")
-    String profit;
-
-
+    double profit;
 }

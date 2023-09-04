@@ -1,4 +1,6 @@
-
+server:
+  address: 0.0.0.0
+  port: 9090
 spring:
   mail:
     host: smtp.163.com
@@ -8,9 +10,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/enterprise?serverTimezone=GMT%2b8
-    username: root
-    password: 123456
+    url: jdbc:mysql://101.34.4.8:3306/enterprise?serverTimezone=GMT%2b8
+    username: test
+    password: test
 
 #mybatis:
 #  mapper-locations: classpath:./mapper/*.xml

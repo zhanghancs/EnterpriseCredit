@@ -1,8 +1,7 @@
 package com.example.enterprisecredit.service;
 
-import com.example.enterprisecredit.entity.Attentionlist;
+import com.example.enterprisecredit.entity.Attention;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -13,6 +12,6 @@ import org.springframework.stereotype.Service;
  * @since 2023-08-28
  */
 
-public interface IAttentionlistService extends IService<Attentionlist> {
+public interface IAttentionService extends IService<Attention> {
 
 }
