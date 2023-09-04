@@ -22,11 +22,9 @@ import java.util.List;
 public class IndustryServiceImpl extends ServiceImpl<IndustryMapper, Industry> implements IIndustryService {
     @Autowired
     IndustryMapper industryMapper;
-    public List<Industry> get()
-    {
+    public List<Industry> queryAll(int type) {
         QueryWrapper wrapper = new QueryWrapper();
-
-        List<Industry> list =industryMapper.selectList(wrapper);
-        return  list;
+        List<Industry> industryList =industryMapper.selectList(wrapper);
+        return  industryList;
     }
 }
