@@ -1,10 +1,9 @@
 package com.example.enterprisecredit.controller;
 
 
-import com.alibaba.druid.sql.parser.Keywords;
 import com.alibaba.fastjson.JSON;
-import com.example.enterprisecredit.entity.Enterprisebasicinfo;
-import com.example.enterprisecredit.service.impl.EnterprisebasicinfoServiceImpl;
+import com.example.enterprisecredit.entity.EnterpriseBasicInfo;
+import com.example.enterprisecredit.service.impl.EnterpriseBasicInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,16 +22,16 @@ import java.util.Map;
  * @since 2023-08-30
  */
 @RestController
-@RequestMapping("/enterprisebasicinfo")
-public class EnterprisebasicinfoController {
+@RequestMapping("/enterpriseBasicInfo")
+public class EnterpriseBasicInfoController {
     @Autowired
-    EnterprisebasicinfoServiceImpl enterprisebasicinfoService;
-    @RequestMapping(value="/getEnterprisebasicinfoById")
-    public String queryUserById(String creditCode){
+    EnterpriseBasicInfoServiceImpl enterpriseBasicInfoService;
+    @RequestMapping(value="/queryEnterpriseBasicInfoByCode")
+    public String queryEnterpriseBasicInfoByCode(int stockCode){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            Enterprisebasicinfo enterprisebasicinfo = enterprisebasicinfoService.getEnterpriseById(creditCode);
+            EnterpriseBasicInfo enterprisebasicinfo = enterpriseBasicInfoService.queryEnterpriseBasicInfoByCode(stockCode);
             result.put("status",200);
             result.put("data",enterprisebasicinfo);
         }catch (Exception ex){
@@ -49,7 +48,7 @@ public class EnterprisebasicinfoController {
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List<Enterprisebasicinfo> resultList  = enterprisebasicinfoService.getEnterpriseMax();
+            List<EnterpriseBasicInfo> resultList  = enterpriseBasicInfoService.getEnterpriseMax();
             result.put("status",200);
 
             result.put("data",resultList);
@@ -67,9 +66,9 @@ public class EnterprisebasicinfoController {
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List <Enterprisebasicinfo> enterprisebasicinfo = enterprisebasicinfoService.getby(area, transferMode, industry);
+            List <EnterpriseBasicInfo> enterpriseBasicInfo = enterpriseBasicInfoService.getby(area, transferMode, industry);
             result.put("status",200);
-            result.put("data",enterprisebasicinfo);
+            result.put("data",enterpriseBasicInfo);
         }catch (Exception ex){
             result.put("status",500);
             result.put("msg","出现异常:"+ex.getMessage());
@@ -78,13 +77,13 @@ public class EnterprisebasicinfoController {
         return JSON.toJSONString(result);
     }
     @RequestMapping(value="/gettwo")
-    public String gettwo(String creditCode1 ,String  creditCode2){
+    public String gettwo(String creditCode1 ,String creditCode2){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List <Enterprisebasicinfo> enterprisebasicinfo = enterprisebasicinfoService.gettwo(creditCode1,creditCode2);
+            List <EnterpriseBasicInfo> enterpriseBasicInfo = enterpriseBasicInfoService.gettwo(creditCode1,creditCode2);
             result.put("status",200);
-            result.put("data",enterprisebasicinfo);
+            result.put("data",enterpriseBasicInfo);
         }catch (Exception ex){
             result.put("status",500);
             result.put("msg","出现异常:"+ex.getMessage());
@@ -93,11 +92,11 @@ public class EnterprisebasicinfoController {
         return JSON.toJSONString(result);
     }
     @RequestMapping(value="/searchEnterprisesByKeyword")
-    public String searchEnterprisesByKeyword( String Keyword ,int Page ,int PageSize){
+    public String searchEnterprisesByKeyword(String Keyword ,int Page ,int PageSize){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List<Enterprisebasicinfo> resultList  = enterprisebasicinfoService.searchEnterprisesByKeyword(Keyword,Page,PageSize);
+            List<EnterpriseBasicInfo> resultList  = enterpriseBasicInfoService.searchEnterprisesByKeyword(Keyword,Page,PageSize);
             result.put("status",200);
 
             result.put("data",resultList);

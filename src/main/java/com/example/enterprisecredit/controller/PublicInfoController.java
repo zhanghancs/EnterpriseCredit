@@ -2,13 +2,14 @@ package com.example.enterprisecredit.controller;
 
 
 import com.alibaba.fastjson.JSON;
-import com.example.enterprisecredit.entity.Dto.Publicinfohelper;
-import com.example.enterprisecredit.entity.Enterprisebasicinfo;
-import com.example.enterprisecredit.entity.Publicinfo;
-import com.example.enterprisecredit.service.impl.PublicinfoServiceImpl;
+import com.example.enterprisecredit.entity.Dto.PublicInfoDto;
+import com.example.enterprisecredit.entity.PublicInfo;
+import com.example.enterprisecredit.service.impl.PublicInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -25,18 +26,16 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/publicinfo")
-public class PublicinfoController {
+public class PublicInfoController {
      @Autowired
-    PublicinfoServiceImpl publicinfoService;
-    @RequestMapping(value="/get")
-    public String queryUserById(String creditCode){
+     PublicInfoServiceImpl publicinfoService;
+    @GetMapping("/queryByCode")
+    public String queryByCode(@RequestParam int stockCode){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
-            Publicinfo publicinfo = publicinfoService.getById(creditCode);
-            Publicinfohelper publicinfohelper = new Publicinfohelper();
-            List<String> res =publicinfohelper.get(publicinfo);
-            result.put("status",200);
-            result.put("data",res);
+            PublicInfoDto publicinfoDto = publicinfoService.queryByCode(stockCode);
+            result.put("status", 200);
+            result.put("data", publicinfoDto);
         }catch (Exception ex){
             result.put("status",500);
             result.put("msg","出现异常:"+ex.getMessage());

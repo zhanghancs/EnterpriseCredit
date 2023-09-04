@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 @TableName("publicinfo")
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Publicinfo implements Serializable {
+public class PublicInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @TableField("creditcode")

@@ -33,12 +33,10 @@ public class MessageController {
             //1)调用userService的 查询单个对象的方法
             List<Message> resultList  = messageService.get();
             result.put("status",200);
-
             result.put("data",resultList);
-
         }catch (Exception ex){
             result.put("status",500);
-            result.put("errorMsg","出现异常:"+ex.getMessage());
+            result.put("msg","出现异常:"+ex.getMessage());
             ex.printStackTrace();
         }
         return JSON.toJSONString(result);

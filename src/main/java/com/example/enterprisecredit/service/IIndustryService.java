@@ -15,6 +15,5 @@ import java.util.List;
  */
 public interface IIndustryService extends IService<Industry> {
 
-   List<Industry> queryAll(int type);
 
 }

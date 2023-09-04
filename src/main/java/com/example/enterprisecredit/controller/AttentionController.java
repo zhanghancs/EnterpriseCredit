@@ -42,10 +42,10 @@ public class AttentionController {
 
     }
 
-    @GetMapping("/queryAll")
-    public String queryAllAttention(@RequestParam String username) {
+    @GetMapping("/queryByUsername")
+    public String queryByUsername(@RequestParam String username) {
         Map<String, Object> result = new HashMap<String, Object>();
-        List<Attention> attentionList = attentionService.queryAllAttention(username);
+        List<Attention> attentionList = attentionService.queryByUsername(username);
         result.put("data", attentionList);
         return JSON.toJSONString(result);
 

@@ -32,7 +32,7 @@ public class AttentionServiceImpl extends ServiceImpl<AttentionMapper, Attention
         return attentionMapper.delete(wrapper);
     }
 
-    public List<Attention> queryAllAttention(String username) {
+    public List<Attention> queryByUsername(String username) {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("username", username);
         return attentionMapper.selectList(wrapper);

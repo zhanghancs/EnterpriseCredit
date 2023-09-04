@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("enterprisebasicinfo")
-public class Enterprisebasicinfo implements Serializable {
+public class EnterpriseBasicInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
