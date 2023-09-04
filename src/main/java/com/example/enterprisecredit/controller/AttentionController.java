@@ -46,7 +46,7 @@ public class AttentionController {
     public String queryAllAttention(@RequestParam String username) {
         Map<String, Object> result = new HashMap<String, Object>();
         List<Attention> attentionList = attentionService.queryAllAttention(username);
-        result.put("data",attentionList);
+        result.put("data", attentionList);
         return JSON.toJSONString(result);
 
     }
