@@ -3,7 +3,6 @@ package com.example.enterprisecredit.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.enterprisecredit.entity.Dto.PublicInfoDto;
-import com.example.enterprisecredit.entity.PublicInfo;
 import com.example.enterprisecredit.service.impl.PublicInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,8 +34,10 @@ public class PublicInfoController {
             PublicInfoDto publicinfoDto = publicInfoService.queryByCode(stockCode);
             result.put("status", 200);
             result.put("data", publicinfoDto);
+            result.put("msg", "成功查询");
         }catch (Exception ex){
             result.put("status",500);
+            result.put("data", null);
             result.put("msg","出现异常:"+ex.getMessage());
             ex.printStackTrace();
         }

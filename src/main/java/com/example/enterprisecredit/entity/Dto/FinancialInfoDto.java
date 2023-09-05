@@ -1,13 +1,11 @@
 package com.example.enterprisecredit.entity.Dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-
 public class FinancialInfoDto {
     public FinancialInfoDto() {
         this.totalRevenue = new ArrayList<Double>();

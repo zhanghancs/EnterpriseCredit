@@ -1,7 +1,10 @@
 package com.example.enterprisecredit.entity.Dto;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class EnterpriseBaseInfoDto {
 
     private String creditCode;

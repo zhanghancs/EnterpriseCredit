@@ -1,6 +1,5 @@
 package com.example.enterprisecredit.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.enterprisecredit.entity.Attention;
 import com.baomidou.mybatisplus.extension.service.IService;
 

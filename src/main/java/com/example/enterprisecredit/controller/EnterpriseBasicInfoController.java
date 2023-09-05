@@ -100,10 +100,11 @@ public class EnterpriseBasicInfoController {
             result.put("status",200);
 
             result.put("data",resultList);
-
+            result.put("msg","成功查询");
         }catch (Exception ex){
             result.put("status",500);
-            result.put("errorMsg","出现异常:"+ex.getMessage());
+            result.put("data",null);
+            result.put("msg","出现异常:"+ex.getMessage());
             ex.printStackTrace();
         }
         return JSON.toJSONString(result);

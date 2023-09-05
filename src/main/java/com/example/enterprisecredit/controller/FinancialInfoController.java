@@ -31,8 +31,19 @@ public class FinancialInfoController {
     @GetMapping("/queryByCode")
     public String queryByCode(@RequestParam int stockCode) {
         Map<String,Object> result = new HashMap<String,Object>();
-        FinancialInfoDto financialInfoDto = financialInfoService.queryByCode(stockCode);
-        result.put("data", financialInfoDto);
+        try {
+            FinancialInfoDto financialInfoDto = financialInfoService.queryByCode(stockCode);
+            result.put("status", 200);
+            result.put("data", financialInfoDto);
+            result.put("msg", "成功查询");
+        }
+        catch(Exception ex) {
+            result.put("status", 500);
+            result.put("data", null);
+            result.put("msg", "异常:" + ex.getMessage());
+        }
+
+
         return JSON.toJSONString(result);
     }
 }

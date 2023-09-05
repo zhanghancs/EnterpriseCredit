@@ -6,7 +6,6 @@ import com.example.enterprisecredit.mapper.IndustryMapper;
 import com.example.enterprisecredit.service.IIndustryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.sourceforge.pinyin4j.PinyinHelper;
-import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
