@@ -30,4 +30,10 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         List<Message> list =messageMapper.selectList(wrapper);
         return  list;
     }
+
+    public List<Message> queryAll() {
+        QueryWrapper wrapper = new QueryWrapper();
+        List<Message> messageList =messageMapper.selectList(wrapper);
+        return  messageList;
+    }
 }

@@ -30,15 +30,20 @@ public class AttentionController {
         Map<String, Object> result = new HashMap<String, Object>();
         try {
             int res = attentionService.insertAttention(attention);
-            result.put("status", 200);
-            result.put("data", res);
-            result.put("msg", "关注成功");
+            if (res != 1) {
+                result.put("status", 400);
+                result.put("data", res);
+                result.put("msg", "该用户已关注");
+            } else {
+                result.put("status", 200);
+                result.put("data", res);
+                result.put("msg", "关注成功");
+            }
         } catch(Exception ex) {
             result.put("status", 500);
             result.put("data", null);
             result.put("msg", "异常:" + ex.getMessage());
         }
-
         return JSON.toJSONString(result);
 
     }
@@ -48,9 +53,15 @@ public class AttentionController {
         Map<String, Object> result = new HashMap<String, Object>();
         try {
             int res = attentionService.deleteAttention(attention);
-            result.put("status", 200);
-            result.put("data", res);
-            result.put("msg", "取消关注成功");
+            if (res != 1) {
+                result.put("status", 400);
+                result.put("data", res);
+                result.put("msg", "该用户已取消");
+            } else {
+                result.put("status", 200);
+                result.put("data", res);
+                result.put("msg", "取消关注成功");
+            }
         }
         catch(Exception ex) {
             result.put("status", 500);

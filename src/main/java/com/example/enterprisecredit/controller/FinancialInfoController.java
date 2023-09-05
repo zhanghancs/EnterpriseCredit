@@ -42,8 +42,6 @@ public class FinancialInfoController {
             result.put("data", null);
             result.put("msg", "异常:" + ex.getMessage());
         }
-
-
         return JSON.toJSONString(result);
     }
 }
