@@ -23,11 +23,17 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     @Autowired
     MessageMapper messageMapper;
 
-    public List<Message> get() {
+    public List<Message> queryMessage() {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.orderByDesc("date");
         wrapper.last("LIMIT 20");
         List<Message> list =messageMapper.selectList(wrapper);
         return  list;
+    }
+
+    public List<Message> queryAll() {
+        QueryWrapper wrapper = new QueryWrapper();
+        List<Message> messageList =messageMapper.selectList(wrapper);
+        return  messageList;
     }
 }

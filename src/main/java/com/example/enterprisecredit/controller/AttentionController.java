@@ -28,8 +28,22 @@ public class AttentionController {
     @PostMapping("/insert")
     public String insertAttention(@RequestBody Attention attention) {
         Map<String, Object> result = new HashMap<String, Object>();
-        int res = attentionService.insertAttention(attention);
-        result.put("data", res);
+        try {
+            int res = attentionService.insertAttention(attention);
+            if (res != 1) {
+                result.put("status", 400);
+                result.put("data", res);
+                result.put("msg", "该用户已关注");
+            } else {
+                result.put("status", 200);
+                result.put("data", res);
+                result.put("msg", "关注成功");
+            }
+        } catch(Exception ex) {
+            result.put("status", 500);
+            result.put("data", null);
+            result.put("msg", "异常:" + ex.getMessage());
+        }
         return JSON.toJSONString(result);
 
     }
@@ -37,18 +51,41 @@ public class AttentionController {
     @PostMapping("/delete")
     public String deleteAttention(@RequestBody Attention attention) {
         Map<String, Object> result = new HashMap<String, Object>();
-        int res = attentionService.deleteAttention(attention);
+        try {
+            int res = attentionService.deleteAttention(attention);
+            if (res != 1) {
+                result.put("status", 400);
+                result.put("data", res);
+                result.put("msg", "该用户已取消关注");
+            } else {
+                result.put("status", 200);
+                result.put("data", res);
+                result.put("msg", "取消关注成功");
+            }
+        }
+        catch(Exception ex) {
+            result.put("status", 500);
+            result.put("data", null);
+            result.put("msg", "异常:" + ex.getMessage());
+        }
         return JSON.toJSONString(result);
 
     }
 
-    @GetMapping("/queryAll")
-    public String queryAllAttention(@RequestParam String username) {
+    @GetMapping("/queryByUsername")
+    public String queryByUsername(@RequestParam String username) {
         Map<String, Object> result = new HashMap<String, Object>();
-        List<Attention> attentionList = attentionService.queryAllAttention(username);
-        result.put("data", attentionList);
+        try {
+            List<Attention> attentionList = attentionService.queryByUsername(username);
+            result.put("status", 200);
+            result.put("data", attentionList);
+            result.put("msg", "成功查询");
+        }
+        catch(Exception ex) {
+            result.put("status", 500);
+            result.put("data", null);
+            result.put("msg", "异常:" + ex.getMessage());
+        }
         return JSON.toJSONString(result);
-
     }
-
 }

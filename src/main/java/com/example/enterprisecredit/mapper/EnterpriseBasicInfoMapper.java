@@ -1,6 +1,6 @@
 package com.example.enterprisecredit.mapper;
 
-import com.example.enterprisecredit.entity.Publicinfo;
+import com.example.enterprisecredit.entity.EnterpriseBasicInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author zhufu
- * @since 2023-08-31
+ * @since 2023-08-30
  */
 @Mapper
-public interface PublicinfoMapper extends BaseMapper<Publicinfo> {
+public interface EnterpriseBasicInfoMapper extends BaseMapper<EnterpriseBasicInfo> {
 
 }

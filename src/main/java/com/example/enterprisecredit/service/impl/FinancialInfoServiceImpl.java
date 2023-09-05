@@ -2,9 +2,7 @@ package com.example.enterprisecredit.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.enterprisecredit.entity.Dto.FinancialInfoDto;
-import com.example.enterprisecredit.entity.Enterprisebasicinfo;
 import com.example.enterprisecredit.entity.FinancialInfo;
-import com.example.enterprisecredit.entity.Publicinfo;
 import com.example.enterprisecredit.mapper.FinancialInfoMapper;
 import com.example.enterprisecredit.service.IFinancialInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -35,12 +33,15 @@ public class FinancialInfoServiceImpl extends ServiceImpl<FinancialInfoMapper, F
         FinancialInfo financialInfo = financialInfoMapper.selectOne(wrapper);
 //        FinancialInfo financialInfo = financialInfoMapper.selectById(stockCode);
         FinancialInfoDto financialInfoDto = new FinancialInfoDto();
+if (financialInfo!=null)
+{
+    financialInfoDto.setTotalRevenue(spiltList(financialInfo.getTotalRevenue()));
+    financialInfoDto.setTotalCost(spiltList(financialInfo.getTotalCost()));
+    financialInfoDto.setCost(spiltList(financialInfo.getCost()));
+    financialInfoDto.setExpense(spiltList(financialInfo.getExpense()));
+    financialInfoDto.setProfit(spiltList(financialInfo.getProfit()));
+}
 
-        financialInfoDto.setTotalRevenue(spiltList(financialInfo.getTotalRevenue()));
-        financialInfoDto.setTotalCost(spiltList(financialInfo.getTotalCost()));
-        financialInfoDto.setCost(spiltList(financialInfo.getCost()));
-        financialInfoDto.setExpense(spiltList(financialInfo.getExpense()));
-        financialInfoDto.setProfit(spiltList(financialInfo.getProfit()));
 
         return financialInfoDto;
 

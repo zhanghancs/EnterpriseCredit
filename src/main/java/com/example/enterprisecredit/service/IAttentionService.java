@@ -3,6 +3,8 @@ package com.example.enterprisecredit.service;
 import com.example.enterprisecredit.entity.Attention;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,5 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 
 public interface IAttentionService extends IService<Attention> {
+    public int insertAttention(Attention attention);
 
+    public int deleteAttention(Attention attention);
+
+    public List<Attention> queryByUsername(String username);
 }

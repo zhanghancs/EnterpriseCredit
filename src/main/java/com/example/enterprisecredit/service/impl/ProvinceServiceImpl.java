@@ -13,14 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ProvinceServiceImpl extends ServiceImpl<ProvinceMapper, Province> implements IProvinceService {
     @Autowired
     ProvinceMapper provinceMapper;
 
-    public List<Province> queryAll() {
+    public List<Province> queryAllProvince() {
         List<Province> provinceList = null;
 
         QueryWrapper<Province> wrapper = new QueryWrapper<>();

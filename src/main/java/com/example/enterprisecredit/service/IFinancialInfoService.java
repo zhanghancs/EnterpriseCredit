@@ -1,5 +1,6 @@
 package com.example.enterprisecredit.service;
 
+import com.example.enterprisecredit.entity.Dto.FinancialInfoDto;
 import com.example.enterprisecredit.entity.FinancialInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,5 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-08-31
  */
 public interface IFinancialInfoService extends IService<FinancialInfo> {
-
+    public FinancialInfoDto queryByCode(int stockCode);
 }

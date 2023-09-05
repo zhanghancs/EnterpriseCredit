@@ -22,6 +22,7 @@ public class AttentionServiceImpl extends ServiceImpl<AttentionMapper, Attention
     @Autowired
     AttentionMapper attentionMapper;
     public int insertAttention(Attention attention) {
+
         return attentionMapper.insert(attention);
     }
 
@@ -32,7 +33,14 @@ public class AttentionServiceImpl extends ServiceImpl<AttentionMapper, Attention
         return attentionMapper.delete(wrapper);
     }
 
-    public List<Attention> queryAllAttention(String username) {
+    public List<Attention> queryAttention(Attention attention) {
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("username",attention.getUserName());
+        wrapper.eq("stockcode",attention.getStockCode());
+        return attentionMapper.selectList(wrapper);
+    }
+
+    public List<Attention> queryByUsername(String username) {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("username", username);
         return attentionMapper.selectList(wrapper);
