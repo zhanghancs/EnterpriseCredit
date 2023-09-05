@@ -2,7 +2,6 @@ package com.example.enterprisecredit.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.enterprisecredit.entity.Dto.FinancialInfoDto;
-import com.example.enterprisecredit.entity.Enterprisebasicinfo;
 import com.example.enterprisecredit.entity.FinancialInfo;
 import com.example.enterprisecredit.mapper.FinancialInfoMapper;
 import com.example.enterprisecredit.service.IFinancialInfoService;

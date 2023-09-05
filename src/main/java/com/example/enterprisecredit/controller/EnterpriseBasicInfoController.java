@@ -1,17 +1,15 @@
 package com.example.enterprisecredit.controller;
 
 
-import com.alibaba.druid.sql.parser.Keywords;
 import com.alibaba.fastjson.JSON;
 import com.example.enterprisecredit.entity.Dto.FinancialInfoDto;
 import com.example.enterprisecredit.entity.Dto.Income;
 import com.example.enterprisecredit.entity.Dto.Predict;
 import com.example.enterprisecredit.entity.Dto.Profit;
-import com.example.enterprisecredit.entity.Enterprisebasicinfo;
+import com.example.enterprisecredit.entity.EnterpriseBasicInfo;
 import com.example.enterprisecredit.service.impl.AttentionServiceImpl;
-import com.example.enterprisecredit.service.impl.EnterprisebasicinfoServiceImpl;
+import com.example.enterprisecredit.service.impl.EnterpriseBasicInfoServiceImpl;
 import com.example.enterprisecredit.service.impl.FinancialInfoServiceImpl;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,22 +26,22 @@ import java.util.*;
  * @since 2023-08-30
  */
 @RestController
-@RequestMapping("/enterprisebasicinfo")
-public class EnterprisebasicinfoController {
+@RequestMapping("/enterpriseBasicInfo")
+public class EnterpriseBasicInfoController {
     @Autowired
-    EnterprisebasicinfoServiceImpl enterprisebasicinfoService;
+    EnterpriseBasicInfoServiceImpl EnterpriseBasicInfoService;
     @Autowired
     AttentionServiceImpl attentionService;
     @Autowired
     FinancialInfoServiceImpl financialInfoService;
-    @RequestMapping(value="/getEnterprisebasicinfoById")
-    public String queryUserById(String creditCode){
+    @RequestMapping(value="/queryEnterpriseBasicInfoByCode")
+    public String queryEnterpriseBasicInfoByCode(int stockCode){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            Enterprisebasicinfo enterprisebasicinfo = enterprisebasicinfoService.getEnterpriseById(creditCode);
+            EnterpriseBasicInfo EnterpriseBasicInfo = EnterpriseBasicInfoService.queryEnterpriseBasicInfoByCode(stockCode);
             result.put("status",200);
-            result.put("data",enterprisebasicinfo);
+            result.put("data",EnterpriseBasicInfo);
         }catch (Exception ex){
             result.put("status",500);
             result.put("msg","出现异常:"+ex.getMessage());
@@ -52,33 +50,33 @@ public class EnterprisebasicinfoController {
         return JSON.toJSONString(result);
     }
 
-    //http://localhost:8080/enterprisebasicinfo/getEnterprisebasicinfoprofitMax
-    @RequestMapping(value="/getEnterprisebasicinfoprofitMax")
-    public String getEnterpriseMax(){
+    //http://localhost:8080/EnterpriseBasicInfo/getEnterpriseBasicInfoprofitMax
+    @RequestMapping(value="/queryTop5Profits")
+    public String queryTop5Profits(){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List<Enterprisebasicinfo> resultList  = enterprisebasicinfoService.getEnterpriseMax();
+            List<EnterpriseBasicInfo> resultList  = EnterpriseBasicInfoService.queryTop5Profits();
             result.put("status",200);
 
             result.put("data",resultList);
 
         }catch (Exception ex){
             result.put("status",500);
-            result.put("errorMsg","出现异常:"+ex.getMessage());
+            result.put("msg","出现异常:"+ex.getMessage());
             ex.printStackTrace();
         }
         return JSON.toJSONString(result);
     }
 
-    @RequestMapping(value="/getby")
-    public String getby(String area,String transferMode,String industry){
+    @RequestMapping(value="/queryByIndex")
+    public String queryByIndex(String area, String transferMode,String industry){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List <Enterprisebasicinfo> enterprisebasicinfo = enterprisebasicinfoService.getby(area, transferMode, industry);
+            List <EnterpriseBasicInfo> EnterpriseBasicInfo = EnterpriseBasicInfoService.queryByIndex(area, transferMode, industry);
             result.put("status",200);
-            result.put("data",enterprisebasicinfo);
+            result.put("data",EnterpriseBasicInfo);
         }catch (Exception ex){
             result.put("status",500);
             result.put("msg","出现异常:"+ex.getMessage());
@@ -86,61 +84,61 @@ public class EnterprisebasicinfoController {
         }
         return JSON.toJSONString(result);
     }
-    @RequestMapping(value="/getbyplus")
-    public String getbyplus(String area,String transferMode,String industry){
+    @RequestMapping(value="/queryByCondition")
+    public String queryByCondition(String area,String transferMode,String industry){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List <Enterprisebasicinfo> enterprisebasicinfo = enterprisebasicinfoService.getby(area, transferMode, industry);
-            for(int i = 0; i < enterprisebasicinfo.size(); i++) {
-                for (int j = i + 1; j < enterprisebasicinfo.size(); j++) {
+            List <EnterpriseBasicInfo> EnterpriseBasicInfo = EnterpriseBasicInfoService.queryByIndex(area, transferMode, industry);
+            for(int i = 0; i < EnterpriseBasicInfo.size(); i++) {
+                for (int j = i + 1; j < EnterpriseBasicInfo.size(); j++) {
                     double num1 = Integer.MIN_VALUE;
                     double num2 = Integer.MIN_VALUE;
-                    num1 =enterprisebasicinfo.get(i).getIncome();
-                    num2 =enterprisebasicinfo.get(j).getIncome();
+                    num1 =EnterpriseBasicInfo.get(i).getIncome();
+                    num2 =EnterpriseBasicInfo.get(j).getIncome();
                     if (num1 < num2) {
-                        Collections.swap(enterprisebasicinfo, i, j);
+                        Collections.swap(EnterpriseBasicInfo, i, j);
                     }
                 }
             }
-            List <Income> enterprisebasicinfo1 = new ArrayList<>();
-            int limit = Math.min(5, enterprisebasicinfo.size()); // 避免越界
+            List <Income> EnterpriseBasicInfo1 = new ArrayList<>();
+            int limit = Math.min(5, EnterpriseBasicInfo.size()); // 避免越界
             for (int i = 0; i < limit; i++) {
-            Income  income =new Income();
-            income.income=enterprisebasicinfo.get(i).getIncome();
-            income.companyName=enterprisebasicinfo.get(i).getName();
-            income.stockCode=enterprisebasicinfo.get(i).getStockCode();
-            enterprisebasicinfo1.add(income);
+                Income  income =new Income();
+                income.income=EnterpriseBasicInfo.get(i).getIncome();
+                income.companyName=EnterpriseBasicInfo.get(i).getName();
+                income.stockCode=EnterpriseBasicInfo.get(i).getStockCode();
+                EnterpriseBasicInfo1.add(income);
             }
 
             result.put("status",200);
-            result.put("data1", enterprisebasicinfo1);
-            for(int i = 0; i < enterprisebasicinfo.size(); i++) {
-                for (int j = i + 1; j < enterprisebasicinfo.size(); j++) {
+            result.put("data1", EnterpriseBasicInfo1);
+            for(int i = 0; i < EnterpriseBasicInfo.size(); i++) {
+                for (int j = i + 1; j < EnterpriseBasicInfo.size(); j++) {
                     double num1 = Integer.MIN_VALUE;
                     double num2 = Integer.MIN_VALUE;
-                   num1 =enterprisebasicinfo.get(i).getProfit();
-                   num2 =enterprisebasicinfo.get(j).getProfit();
+                    num1 =EnterpriseBasicInfo.get(i).getProfit();
+                    num2 =EnterpriseBasicInfo.get(j).getProfit();
                     if (num1 < num2) {
-                        Collections.swap(enterprisebasicinfo, i, j);
+                        Collections.swap(EnterpriseBasicInfo, i, j);
                     }
                 }
             }
-            List <Profit> enterprisebasicinfo2 = new ArrayList<>();
-            int limit1 = Math.min(5, enterprisebasicinfo.size()); // 避免越界
+            List <Profit> EnterpriseBasicInfo2 = new ArrayList<>();
+            int limit1 = Math.min(5, EnterpriseBasicInfo.size()); // 避免越界
             for (int i = 0; i < limit; i++) {
                 Profit profit =new Profit();
-                profit.profit=enterprisebasicinfo.get(i).getProfit();
-                profit.companyName=enterprisebasicinfo.get(i).getName();
-                profit.stockCode=enterprisebasicinfo.get(i).getStockCode();
-                enterprisebasicinfo2.add(profit);
+                profit.profit=EnterpriseBasicInfo.get(i).getProfit();
+                profit.companyName=EnterpriseBasicInfo.get(i).getName();
+                profit.stockCode=EnterpriseBasicInfo.get(i).getStockCode();
+                EnterpriseBasicInfo2.add(profit);
             }
 
-            result.put("data2", enterprisebasicinfo2);
+            result.put("data2", EnterpriseBasicInfo2);
             List<FinancialInfoDto> financialInfoDtoList =new ArrayList<>();
-            for(int i=0;i<enterprisebasicinfo.size();i++)
+            for(int i=0;i<EnterpriseBasicInfo.size();i++)
             {
-                financialInfoDtoList.add(financialInfoService.queryByCode(Integer.parseInt(enterprisebasicinfo.get(i).getStockCode()))) ;
+                financialInfoDtoList.add(financialInfoService.queryByCode(Integer.parseInt(EnterpriseBasicInfo.get(i).getStockCode()))) ;
             }
             List<Predict> predictList = new ArrayList<>();
             for(int i =0;i<5;i++)
@@ -170,14 +168,14 @@ public class EnterprisebasicinfoController {
         }
         return JSON.toJSONString(result);
     }
-    @RequestMapping(value="/gettwo")
-    public String gettwo(String creditCode1 ,String  creditCode2){
+    @RequestMapping(value="/query2Enterprise")
+    public String query2Enterprise(int stockCode1 ,int  stockCode2){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List <Enterprisebasicinfo> enterprisebasicinfo = enterprisebasicinfoService.gettwo(creditCode1,creditCode2);
+            List <EnterpriseBasicInfo> EnterpriseBasicInfo = EnterpriseBasicInfoService.query2Enterprise(stockCode1,stockCode2);
             result.put("status",200);
-            result.put("data",enterprisebasicinfo);
+            result.put("data",EnterpriseBasicInfo);
         }catch (Exception ex){
             result.put("status",500);
             result.put("msg","出现异常:"+ex.getMessage());
@@ -185,14 +183,14 @@ public class EnterprisebasicinfoController {
         }
         return JSON.toJSONString(result);
     }
-    @RequestMapping(value="/searchEnterprisesByKeyword")
-    public String searchEnterprisesByKeyword( String Keyword ,int Page ,int PageSize){
+    @RequestMapping(value="/queryEnterpriseByKeyword")
+    public String queryEnterpriseByKeyword(String keyword ,int page ,int pageSize){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List<Enterprisebasicinfo> resultList  = enterprisebasicinfoService.searchEnterprisesByKeyword(Keyword,Page,PageSize);
+            List<EnterpriseBasicInfo> resultList  = EnterpriseBasicInfoService.queryEnterpriseByKeyword(keyword,page,pageSize);
             result.put("status",200);
-            result.put("total",enterprisebasicinfoService.total);
+            result.put("total",EnterpriseBasicInfoService.total);
             result.put("data",resultList);
 
         }catch (Exception ex){
@@ -202,16 +200,15 @@ public class EnterprisebasicinfoController {
         }
         return JSON.toJSONString(result);
     }
-    @RequestMapping(value="/searchEnterprisePlus")
-    public String searchEnterprisePlus( String creditCode ,String name ,int stockcode){
+    @RequestMapping(value="/queryEnterprisePlus")
+    public String queryEnterprisePlus(String username, int stockCode){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            Enterprisebasicinfo enterprisebasicinfo = enterprisebasicinfoService.getEnterpriseById(creditCode);
-
+            EnterpriseBasicInfo EnterpriseBasicInfo = EnterpriseBasicInfoService.queryEnterpriseBasicInfoByCode(stockCode);
             result.put("status",200);
-            result.put("data",enterprisebasicinfo);
-            int flag = attentionService.status(name ,stockcode);
+            result.put("data",EnterpriseBasicInfo);
+            int flag = attentionService.status(username ,stockCode);
             if(flag ==1)
             {
                 result.put("flag",0);
@@ -227,3 +224,4 @@ public class EnterprisebasicinfoController {
         return JSON.toJSONString(result);
     }
 }
+

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class EnterpriseBaseInfoDto {
+public class EnterpriseBasicInfoDto {
 
     private String creditCode;
 

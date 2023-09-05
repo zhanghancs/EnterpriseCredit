@@ -27,7 +27,7 @@ import java.util.Map;
 public class MessageController {
     @Autowired
     private MessageServiceImpl messageService;
-    @RequestMapping(value="/get")
+    @RequestMapping(value="/queryMessage")
     public String queryMessage(){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
@@ -45,7 +45,7 @@ public class MessageController {
         return JSON.toJSONString(result);
     }
 
-    @GetMapping("/queryAll")
+    @GetMapping("/queryAllMessage")
     public String queryAllMessage() {
         Map<String,Object> result = new HashMap<String,Object>();
         try{

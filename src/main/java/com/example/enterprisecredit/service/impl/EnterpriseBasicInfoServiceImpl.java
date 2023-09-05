@@ -1,9 +1,9 @@
 package com.example.enterprisecredit.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.enterprisecredit.entity.Enterprisebasicinfo;
-import com.example.enterprisecredit.mapper.EnterprisebasicinfoMapper;
-import com.example.enterprisecredit.service.IEnterprisebasicinfoService;
+import com.example.enterprisecredit.entity.EnterpriseBasicInfo;
+import com.example.enterprisecredit.mapper.EnterpriseBasicInfoMapper;
+import com.example.enterprisecredit.service.IEnterpriseBasicInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,22 +21,23 @@ import java.util.List;
  * @since 2023-08-30
  */
 @Service
-public class EnterprisebasicinfoServiceImpl extends ServiceImpl<EnterprisebasicinfoMapper, Enterprisebasicinfo> implements IEnterprisebasicinfoService {
+public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicInfoMapper, EnterpriseBasicInfo> implements IEnterpriseBasicInfoService {
+
     @Autowired
-    EnterprisebasicinfoMapper enterprisebasicinfoMapper;
-public static int total = 0;
+    EnterpriseBasicInfoMapper enterpriseBasicInfoMapper;
+    public static int total = 0;
     @Override
-    public Enterprisebasicinfo getEnterpriseById(String creditCode) {
+    public EnterpriseBasicInfo queryEnterpriseBasicInfoByCode(int stockCode) {
         //1)封装查询条件  QueryWrapper
         QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq("creditCode", creditCode);
+        wrapper.eq("stockcode", stockCode);
         //2)执行查询
-        Enterprisebasicinfo enterprisebasicinfo = enterprisebasicinfoMapper.selectOne(wrapper);
-        return enterprisebasicinfo;
+        EnterpriseBasicInfo EnterpriseBasicInfo = enterpriseBasicInfoMapper.selectOne(wrapper);
+        return EnterpriseBasicInfo;
     }
 
     @Override
-    public List<Enterprisebasicinfo> getEnterpriseMax() {
+    public List<EnterpriseBasicInfo> queryTop5Profits() {
         //1)封装查询条件  QueryWrapper
         QueryWrapper wrapper = new QueryWrapper();
 
@@ -44,7 +45,7 @@ public static int total = 0;
         wrapper.last("LIMIT 5");
 
         //2)执行查询
-        List<Enterprisebasicinfo> resultList = enterprisebasicinfoMapper.selectList(wrapper);
+        List<EnterpriseBasicInfo> resultList = enterpriseBasicInfoMapper.selectList(wrapper);
 
         //3)提取查询结果
         return resultList;
@@ -52,14 +53,14 @@ public static int total = 0;
     }
 
     @Override
-    public List<Enterprisebasicinfo> getEnterprise(String area) {
+    public List<EnterpriseBasicInfo> getEnterprise(String area) {
         //1)封装查询条件  QueryWrapper
         QueryWrapper wrapper = new QueryWrapper();
 
         wrapper.eq("area", area);
 
         //2)执行查询
-        List<Enterprisebasicinfo> resultList = enterprisebasicinfoMapper.selectList(wrapper);
+        List<EnterpriseBasicInfo> resultList = enterpriseBasicInfoMapper.selectList(wrapper);
 
         //3)提取查询结果
         return resultList;
@@ -72,7 +73,7 @@ public static int total = 0;
 
 
         //2)执行查询
-        List<String> resultList = enterprisebasicinfoMapper.selectList(wrapper);
+        List<String> resultList = enterpriseBasicInfoMapper.selectList(wrapper);
 
         //3)提取查询结果
         return resultList;
@@ -81,7 +82,7 @@ public static int total = 0;
     }
 
     @Override
-    public List<Enterprisebasicinfo> getby(String area, String transferMode, String industry) {
+    public List<EnterpriseBasicInfo> queryByIndex(String area, String transferMode, String industry) {
 
         QueryWrapper wrapper = new QueryWrapper();
         if (area != null) {
@@ -96,38 +97,37 @@ public static int total = 0;
         wrapper.last("LIMIT 5");
 
         //2)执行查询
-        List<Enterprisebasicinfo> enterprisebasicinfo = enterprisebasicinfoMapper.selectList(wrapper);
-        return enterprisebasicinfo;
+        List<EnterpriseBasicInfo> EnterpriseBasicInfo = enterpriseBasicInfoMapper.selectList(wrapper);
+        return EnterpriseBasicInfo;
     }
 
-    public List<Enterprisebasicinfo> gettwo(String creditCode1, String creditCode2)
+    public List<EnterpriseBasicInfo> query2Enterprise(int stockCode1, int stockCode2)
     {
-
-        QueryWrapper<Enterprisebasicinfo> wrapper = new QueryWrapper<>();
-        wrapper.in("creditCode", Arrays.asList(creditCode1, creditCode2));
+        QueryWrapper<EnterpriseBasicInfo> wrapper = new QueryWrapper<>();
+        wrapper.in("stockcode", Arrays.asList(stockCode1, stockCode2));
 
         // 2) 执行查询
-        List<Enterprisebasicinfo> enterprisebasicinfoList = enterprisebasicinfoMapper.selectList(wrapper);
+        List<EnterpriseBasicInfo> EnterpriseBasicInfoList = enterpriseBasicInfoMapper.selectList(wrapper);
 
-        return enterprisebasicinfoList;
+        return EnterpriseBasicInfoList;
 
     }
     @Override
-    public List<Enterprisebasicinfo> searchEnterprisesByKeyword(String keyword, int pageNo, int pageSize) {
+    public List<EnterpriseBasicInfo> queryEnterpriseByKeyword(String keyword, int page, int pageSize) {
         // 计算分页的起始位置
-        int offset = (pageNo - 1) * pageSize;
+        int offset = (page - 1) * pageSize;
 
         // 1) 封装查询条件 QueryWrapper
-        List<Enterprisebasicinfo> results = new ArrayList<>();
+        List<EnterpriseBasicInfo> results = new ArrayList<>();
 
         // 1) 使用creditCode属性进行模糊搜索
-        QueryWrapper<Enterprisebasicinfo> creditCodeWrapper = new QueryWrapper<>();
+        QueryWrapper<EnterpriseBasicInfo> creditCodeWrapper = new QueryWrapper<>();
         creditCodeWrapper.like("stockCode", "%" + keyword + "%");
-        List<Enterprisebasicinfo> enterprisesByCreditCode1 = enterprisebasicinfoMapper.selectList(creditCodeWrapper);
+        List<EnterpriseBasicInfo> enterprisesByCreditCode1 = enterpriseBasicInfoMapper.selectList(creditCodeWrapper);
         if(enterprisesByCreditCode1.size()!=0)
             total = enterprisesByCreditCode1.size();
         creditCodeWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
-        List<Enterprisebasicinfo> enterprisesByCreditCode = enterprisebasicinfoMapper.selectList(creditCodeWrapper);
+        List<EnterpriseBasicInfo> enterprisesByCreditCode = enterpriseBasicInfoMapper.selectList(creditCodeWrapper);
 
         // 2) 如果creditCode查询结果不为空，将其添加到结果列表中
         if (!enterprisesByCreditCode.isEmpty()) {
@@ -135,13 +135,13 @@ public static int total = 0;
             results.addAll(enterprisesByCreditCode);
         } else {
             // 3) 使用name属性进行模糊搜索
-            QueryWrapper<Enterprisebasicinfo> nameWrapper = new QueryWrapper<>();
+            QueryWrapper<EnterpriseBasicInfo> nameWrapper = new QueryWrapper<>();
             nameWrapper.like("name", "%" + keyword + "%");
-            List<Enterprisebasicinfo> enterprisesByCreditCode2 = enterprisebasicinfoMapper.selectList(nameWrapper);
+            List<EnterpriseBasicInfo> enterprisesByCreditCode2 = enterpriseBasicInfoMapper.selectList(nameWrapper);
             if(enterprisesByCreditCode2.size()!=0)
                 total = enterprisesByCreditCode2.size();
             nameWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
-            List<Enterprisebasicinfo> enterprisesByName = enterprisebasicinfoMapper.selectList(nameWrapper);
+            List<EnterpriseBasicInfo> enterprisesByName = enterpriseBasicInfoMapper.selectList(nameWrapper);
 
             // 4) 如果name查询结果不为空，将其添加到结果列表中
             if (!enterprisesByName.isEmpty()) {
@@ -149,13 +149,13 @@ public static int total = 0;
                 results.addAll(enterprisesByName);
             } else {
                 // 5) 使用shortname属性进行模糊搜索
-                QueryWrapper<Enterprisebasicinfo> shortnameWrapper = new QueryWrapper<>();
+                QueryWrapper<EnterpriseBasicInfo> shortnameWrapper = new QueryWrapper<>();
                 shortnameWrapper.like("shortname", "%" + keyword + "%");
-                List<Enterprisebasicinfo> enterprisesByCreditCode3 = enterprisebasicinfoMapper.selectList(shortnameWrapper);
+                List<EnterpriseBasicInfo> enterprisesByCreditCode3 = enterpriseBasicInfoMapper.selectList(shortnameWrapper);
                 if(enterprisesByCreditCode3.size()!=0)
                     total = enterprisesByCreditCode3.size();
                 shortnameWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
-                List<Enterprisebasicinfo> enterprisesByShortname = enterprisebasicinfoMapper.selectList(shortnameWrapper);
+                List<EnterpriseBasicInfo> enterprisesByShortname = enterpriseBasicInfoMapper.selectList(shortnameWrapper);
 
                 // 6) 如果shortname查询结果不为空，将其添加到结果列表中
                 if (!enterprisesByShortname.isEmpty()) {
@@ -163,13 +163,16 @@ public static int total = 0;
                     results.addAll(enterprisesByShortname);
                 }
                 else {
-                    QueryWrapper<Enterprisebasicinfo> addressWrapper = new QueryWrapper<>();
+                    QueryWrapper<EnterpriseBasicInfo> addressWrapper = new QueryWrapper<>();
                     addressWrapper.like("address", "%" + keyword + "%");
-                    List<Enterprisebasicinfo> enterprisesByCreditCode4 = enterprisebasicinfoMapper.selectList(addressWrapper);
+                    List<EnterpriseBasicInfo> enterprisesByCreditCode4 = enterpriseBasicInfoMapper.selectList(addressWrapper);
                     if(enterprisesByCreditCode4.size()!=0)
+                    {
+
                         total = enterprisesByCreditCode4.size();
-                    shortnameWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
-                    List<Enterprisebasicinfo> enterprisesByaddress = enterprisebasicinfoMapper.selectList(addressWrapper);
+                    }
+                    addressWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
+                    List<EnterpriseBasicInfo> enterprisesByaddress = enterpriseBasicInfoMapper.selectList(addressWrapper);
                     if (!enterprisesByaddress.isEmpty()) {
 
                         results.addAll(enterprisesByaddress);
@@ -180,6 +183,7 @@ public static int total = 0;
         }
 
         return results;
+
     }
 
 

@@ -56,7 +56,7 @@ public class AttentionController {
             if (res != 1) {
                 result.put("status", 400);
                 result.put("data", res);
-                result.put("msg", "该用户已取消");
+                result.put("msg", "该用户已取消关注");
             } else {
                 result.put("status", 200);
                 result.put("data", res);
@@ -86,9 +86,6 @@ public class AttentionController {
             result.put("data", null);
             result.put("msg", "异常:" + ex.getMessage());
         }
-
         return JSON.toJSONString(result);
-
     }
-
 }
