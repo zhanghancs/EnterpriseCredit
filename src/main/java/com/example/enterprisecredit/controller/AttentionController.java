@@ -30,15 +30,15 @@ public class AttentionController {
         Map<String, Object> result = new HashMap<String, Object>();
         try {
             int res = attentionService.insertAttention(attention);
-            if (res != 1) {
-                result.put("status", 400);
-                result.put("data", res);
-                result.put("msg", "该用户已关注");
-            } else {
-                result.put("status", 200);
-                result.put("data", res);
-                result.put("msg", "关注成功");
-            }
+//            if (res != 1) {
+//                result.put("status", 400);
+//                result.put("data", res);
+//                result.put("msg", "该用户已关注");
+//            } else {
+            result.put("status", 200);
+            result.put("data", res);
+            result.put("msg", "关注成功");
+//            }
         } catch(Exception ex) {
             result.put("status", 500);
             result.put("data", null);
@@ -48,7 +48,7 @@ public class AttentionController {
 
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public String deleteAttention(@RequestBody Attention attention) {
         Map<String, Object> result = new HashMap<String, Object>();
         try {

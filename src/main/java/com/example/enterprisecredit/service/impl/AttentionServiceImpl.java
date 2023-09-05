@@ -22,7 +22,9 @@ public class AttentionServiceImpl extends ServiceImpl<AttentionMapper, Attention
     @Autowired
     AttentionMapper attentionMapper;
     public int insertAttention(Attention attention) {
-
+//        if (queryAttention(attention) != null) {
+//            return -1;
+//        }
         return attentionMapper.insert(attention);
     }
 

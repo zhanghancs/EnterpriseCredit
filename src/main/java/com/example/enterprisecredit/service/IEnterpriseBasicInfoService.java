@@ -1,6 +1,7 @@
 package com.example.enterprisecredit.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.enterprisecredit.entity.EnterpriseBasicInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -36,7 +37,7 @@ public interface IEnterpriseBasicInfoService extends IService<EnterpriseBasicInf
 
     public List<EnterpriseBasicInfo> query2Enterprise(int stockCode1, int stockCode2);
 
-    public List<EnterpriseBasicInfo> queryEnterpriseByKeyword(String keyword, int pageNo, int pageSize);
+    public IPage<EnterpriseBasicInfo> queryEnterpriseByKeyword(String keyword, int pageNo, int pageSize);
 
 
 }
