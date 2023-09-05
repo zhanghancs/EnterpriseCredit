@@ -13,5 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-08-31
  */
 public interface IPublicInfoService extends IService<PublicInfo> {
-    PublicInfoDto queryByCode(int stockCode);
+    public PublicInfoDto queryByCode(int stockCode);
 }

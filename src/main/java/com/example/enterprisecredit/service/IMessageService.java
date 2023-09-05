@@ -14,5 +14,5 @@ import java.util.List;
  * @since 2023-09-01
  */
 public interface IMessageService extends IService<Message> {
-    List<Message> get();
+    public List<Message> queryMessage();
 }

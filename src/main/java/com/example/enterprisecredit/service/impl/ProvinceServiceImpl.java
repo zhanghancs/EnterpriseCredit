@@ -20,7 +20,7 @@ public class ProvinceServiceImpl extends ServiceImpl<ProvinceMapper, Province> i
     @Autowired
     ProvinceMapper provinceMapper;
 
-    public List<Province> queryAll() {
+    public List<Province> queryAllProvince() {
         List<Province> provinceList = null;
 
         QueryWrapper<Province> wrapper = new QueryWrapper<>();

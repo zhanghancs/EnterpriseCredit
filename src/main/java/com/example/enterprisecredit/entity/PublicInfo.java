@@ -23,8 +23,8 @@ import lombok.experimental.Accessors;
 public class PublicInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @TableField("creditcode")
-    private String creditCode;
+    @TableField("stockcode")
+    private int stockCode;
     @TableField("adminliceninfo")
     private String adminLicenInfo;
     @TableField("adminpenaltyinfo")

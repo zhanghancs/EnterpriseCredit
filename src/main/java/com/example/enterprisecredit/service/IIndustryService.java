@@ -14,6 +14,5 @@ import java.util.List;
  * @since 2023-08-30
  */
 public interface IIndustryService extends IService<Industry> {
-
-
+    public  List<Industry> queryByAlphabet(String first ,String last);
 }

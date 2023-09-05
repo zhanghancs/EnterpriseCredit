@@ -23,12 +23,12 @@ public class ProvinceController {
     @Autowired
     ProvinceServiceImpl provinceService;
 
-    @GetMapping("/queryAll")
-    public String queryAll() {
+    @GetMapping("/queryAllProvince")
+    public String queryAllProvince() {
         Map<String, Object> result = new HashMap<String, Object>();
 
         List<Province> provinceList = null;
-        provinceList = provinceService.queryAll();
+        provinceList = provinceService.queryAllProvince();
 
         List<Map<String, Object>> formattedProvinceList = new ArrayList<>();
         for (Province province : provinceList) {
@@ -48,7 +48,7 @@ public class ProvinceController {
 
     }
     @GetMapping("/queryAllMarket")
-    public String market() {
+    public String queryAllMarket() {
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             List<MarketDto> marketList = provinceService.queryAllMarket();

@@ -23,7 +23,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     @Autowired
     MessageMapper messageMapper;
 
-    public List<Message> get() {
+    public List<Message> queryMessage() {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.orderByDesc("date");
         wrapper.last("LIMIT 20");

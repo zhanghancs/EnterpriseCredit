@@ -25,15 +25,15 @@ import java.util.Map;
  * @since 2023-08-31
  */
 @RestController
-@RequestMapping("/publicinfo")
+@RequestMapping("/publicInfo")
 public class PublicInfoController {
      @Autowired
-     PublicInfoServiceImpl publicinfoService;
+     PublicInfoServiceImpl publicInfoService;
     @GetMapping("/queryByCode")
     public String queryByCode(@RequestParam int stockCode){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
-            PublicInfoDto publicinfoDto = publicinfoService.queryByCode(stockCode);
+            PublicInfoDto publicinfoDto = publicInfoService.queryByCode(stockCode);
             result.put("status", 200);
             result.put("data", publicinfoDto);
         }catch (Exception ex){

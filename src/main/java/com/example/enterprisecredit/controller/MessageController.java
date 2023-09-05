@@ -27,11 +27,11 @@ public class MessageController {
     @Autowired
     private MessageServiceImpl messageService;
     @RequestMapping(value="/get")
-    public String getEnterpriseMax(){
+    public String queryMessage(){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List<Message> resultList  = messageService.get();
+            List<Message> resultList  = messageService.queryMessage();
             result.put("status",200);
             result.put("data",resultList);
         }catch (Exception ex){
