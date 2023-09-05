@@ -167,8 +167,11 @@ public static int total = 0;
                     addressWrapper.like("address", "%" + keyword + "%");
                     List<Enterprisebasicinfo> enterprisesByCreditCode4 = enterprisebasicinfoMapper.selectList(addressWrapper);
                     if(enterprisesByCreditCode4.size()!=0)
+                    {
+
                         total = enterprisesByCreditCode4.size();
-                    shortnameWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
+                    }
+                    addressWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
                     List<Enterprisebasicinfo> enterprisesByaddress = enterprisebasicinfoMapper.selectList(addressWrapper);
                     if (!enterprisesByaddress.isEmpty()) {
 
