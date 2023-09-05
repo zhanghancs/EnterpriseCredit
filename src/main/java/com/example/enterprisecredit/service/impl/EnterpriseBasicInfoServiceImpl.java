@@ -1,6 +1,8 @@
 package com.example.enterprisecredit.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.enterprisecredit.entity.EnterpriseBasicInfo;
 import com.example.enterprisecredit.mapper.EnterpriseBasicInfoMapper;
 import com.example.enterprisecredit.service.IEnterpriseBasicInfoService;
@@ -25,7 +27,7 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
 
     @Autowired
     EnterpriseBasicInfoMapper enterpriseBasicInfoMapper;
-    public static int total = 0;
+    public static long total = 0;
     @Override
     public EnterpriseBasicInfo queryEnterpriseBasicInfoByCode(int stockCode) {
         //1)封装查询条件  QueryWrapper
@@ -113,77 +115,21 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
 
     }
     @Override
-    public List<EnterpriseBasicInfo> queryEnterpriseByKeyword(String keyword, int page, int pageSize) {
-        // 计算分页的起始位置
-        int offset = (page - 1) * pageSize;
-
-        // 1) 封装查询条件 QueryWrapper
-        List<EnterpriseBasicInfo> results = new ArrayList<>();
-
-        // 1) 使用creditCode属性进行模糊搜索
-        QueryWrapper<EnterpriseBasicInfo> creditCodeWrapper = new QueryWrapper<>();
-        creditCodeWrapper.like("stockCode", "%" + keyword + "%");
-        List<EnterpriseBasicInfo> enterprisesByCreditCode1 = enterpriseBasicInfoMapper.selectList(creditCodeWrapper);
-        if(enterprisesByCreditCode1.size()!=0)
-            total = enterprisesByCreditCode1.size();
-        creditCodeWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
-        List<EnterpriseBasicInfo> enterprisesByCreditCode = enterpriseBasicInfoMapper.selectList(creditCodeWrapper);
-
-        // 2) 如果creditCode查询结果不为空，将其添加到结果列表中
-        if (!enterprisesByCreditCode.isEmpty()) {
-
-            results.addAll(enterprisesByCreditCode);
-        } else {
-            // 3) 使用name属性进行模糊搜索
-            QueryWrapper<EnterpriseBasicInfo> nameWrapper = new QueryWrapper<>();
-            nameWrapper.like("name", "%" + keyword + "%");
-            List<EnterpriseBasicInfo> enterprisesByCreditCode2 = enterpriseBasicInfoMapper.selectList(nameWrapper);
-            if(enterprisesByCreditCode2.size()!=0)
-                total = enterprisesByCreditCode2.size();
-            nameWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
-            List<EnterpriseBasicInfo> enterprisesByName = enterpriseBasicInfoMapper.selectList(nameWrapper);
-
-            // 4) 如果name查询结果不为空，将其添加到结果列表中
-            if (!enterprisesByName.isEmpty()) {
-
-                results.addAll(enterprisesByName);
-            } else {
-                // 5) 使用shortname属性进行模糊搜索
-                QueryWrapper<EnterpriseBasicInfo> shortnameWrapper = new QueryWrapper<>();
-                shortnameWrapper.like("shortname", "%" + keyword + "%");
-                List<EnterpriseBasicInfo> enterprisesByCreditCode3 = enterpriseBasicInfoMapper.selectList(shortnameWrapper);
-                if(enterprisesByCreditCode3.size()!=0)
-                    total = enterprisesByCreditCode3.size();
-                shortnameWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
-                List<EnterpriseBasicInfo> enterprisesByShortname = enterpriseBasicInfoMapper.selectList(shortnameWrapper);
-
-                // 6) 如果shortname查询结果不为空，将其添加到结果列表中
-                if (!enterprisesByShortname.isEmpty()) {
-
-                    results.addAll(enterprisesByShortname);
-                }
-                else {
-                    QueryWrapper<EnterpriseBasicInfo> addressWrapper = new QueryWrapper<>();
-                    addressWrapper.like("address", "%" + keyword + "%");
-                    List<EnterpriseBasicInfo> enterprisesByCreditCode4 = enterpriseBasicInfoMapper.selectList(addressWrapper);
-                    if(enterprisesByCreditCode4.size()!=0)
-                    {
-
-                        total = enterprisesByCreditCode4.size();
-                    }
-                    addressWrapper.last("LIMIT " + offset + "," + pageSize); // 添加分页限制
-                    List<EnterpriseBasicInfo> enterprisesByaddress = enterpriseBasicInfoMapper.selectList(addressWrapper);
-                    if (!enterprisesByaddress.isEmpty()) {
-
-                        results.addAll(enterprisesByaddress);
-                    }
-                }
-
-            }
-        }
-
+    public IPage<EnterpriseBasicInfo> queryEnterpriseByKeyword(String keyword, int p, int size) {
+        QueryWrapper<EnterpriseBasicInfo> wrapper = new QueryWrapper<>();
+        wrapper.or(
+                i -> i.like("stockCode", "%" + keyword + "%")
+                        .or()
+                        .like("name", "%" + keyword + "%")
+                        .or()
+                        .like("shortname", "%" + keyword + "%")
+                        .or()
+                        .like("address", "%" + keyword + "%")
+        );
+        Page<EnterpriseBasicInfo> page = new Page<EnterpriseBasicInfo>(p, size);
+        IPage<EnterpriseBasicInfo> results = enterpriseBasicInfoMapper.selectPage(page, wrapper);
+        total = results.getTotal();
         return results;
-
     }
 
 

@@ -2,6 +2,7 @@ package com.example.enterprisecredit.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.enterprisecredit.entity.Dto.FinancialInfoDto;
 import com.example.enterprisecredit.entity.Dto.Income;
 import com.example.enterprisecredit.entity.Dto.Predict;
@@ -188,9 +189,9 @@ public class EnterpriseBasicInfoController {
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List<EnterpriseBasicInfo> resultList  = EnterpriseBasicInfoService.queryEnterpriseByKeyword(keyword,page,pageSize);
+            IPage<EnterpriseBasicInfo> resultList  = EnterpriseBasicInfoService.queryEnterpriseByKeyword(keyword,page,pageSize);
             result.put("status",200);
-            result.put("total",EnterpriseBasicInfoService.total);
+            result.put("total", EnterpriseBasicInfoService.total);
             result.put("data",resultList);
 
         }catch (Exception ex){
