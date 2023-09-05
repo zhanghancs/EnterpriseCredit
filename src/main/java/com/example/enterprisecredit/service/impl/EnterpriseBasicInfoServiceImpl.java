@@ -85,13 +85,13 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
     public List<EnterpriseBasicInfo> queryByIndex(String area, String transferMode, String industry) {
 
         QueryWrapper wrapper = new QueryWrapper();
-        if (area != null) {
+        if (area != null&&area!="All") {
             wrapper.eq("area", area);
         }
-        if (transferMode != null) {
+        if (transferMode != null&&transferMode!="All") {
             wrapper.eq("transferMode", transferMode);
         }
-        if (industry != null) {
+        if (industry != null&&industry!="All") {
             wrapper.eq("industry", industry);
         }
 
