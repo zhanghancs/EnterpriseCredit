@@ -93,8 +93,8 @@ public class EnterpriseBasicInfoController {
             List <EnterpriseBasicInfo> EnterpriseBasicInfo = EnterpriseBasicInfoService.queryByIndex(area, transferMode, industry);
             for(int i = 0; i < EnterpriseBasicInfo.size(); i++) {
                 for (int j = i + 1; j < EnterpriseBasicInfo.size(); j++) {
-                    double num1 = Integer.MIN_VALUE;
-                    double num2 = Integer.MIN_VALUE;
+                    double num1 = Double.MIN_VALUE;
+                    double num2 = Double.MIN_VALUE;
                     num1 =EnterpriseBasicInfo.get(i).getIncome();
                     num2 =EnterpriseBasicInfo.get(j).getIncome();
                     if (num1 < num2) {
@@ -116,8 +116,8 @@ public class EnterpriseBasicInfoController {
             result.put("data1", EnterpriseBasicInfo1);
             for(int i = 0; i < EnterpriseBasicInfo.size(); i++) {
                 for (int j = i + 1; j < EnterpriseBasicInfo.size(); j++) {
-                    double num1 = Integer.MIN_VALUE;
-                    double num2 = Integer.MIN_VALUE;
+                    double num1 = Double.MIN_VALUE;
+                    double num2 = Double.MIN_VALUE;
                     num1 =EnterpriseBasicInfo.get(i).getProfit();
                     num2 =EnterpriseBasicInfo.get(j).getProfit();
                     if (num1 < num2) {
@@ -137,29 +137,45 @@ public class EnterpriseBasicInfoController {
 
             result.put("data2", EnterpriseBasicInfo2);
             List<FinancialInfoDto> financialInfoDtoList =new ArrayList<>();
+
             for(int i=0;i<EnterpriseBasicInfo.size();i++)
             {
-                financialInfoDtoList.add(financialInfoService.queryByCode(Integer.parseInt(EnterpriseBasicInfo.get(i).getStockCode()))) ;
-            }
-            List<Predict> predictList = new ArrayList<>();
-            for(int i =0;i<5;i++)
-            {
-                Double income =0.0;
-                Double profit =0.0;
-                int date =2020;
-                for(int j =0;j<financialInfoDtoList.size();j++)
-                {
-                    income+=financialInfoDtoList.get(j).getTotalRevenue().get(i);
-                    profit+=financialInfoDtoList.get(j).getProfit().get(i);
 
+                if(financialInfoService.queryByCode(Integer.parseInt(EnterpriseBasicInfo.get(i).getStockCode()))!=null)
+                {
+                    financialInfoDtoList.add(financialInfoService.queryByCode(Integer.parseInt(EnterpriseBasicInfo.get(i).getStockCode()))) ;
                 }
-                date+=i;
-                Predict predict =new Predict();
-                predict.aveIncome=income/financialInfoDtoList.size();
-                predict.aveProfit=profit/financialInfoDtoList.size();
-                predict.Date=String.valueOf(date);
+
+            }
+
+            List<Predict> predictList = new ArrayList<>();
+
+            for (int i = 0; i < 5; i++) {
+                Double income = 0.0;
+                Double profit = 0.0;
+                int date = 2020;
+
+                for (int j = 0; j < financialInfoDtoList.size(); j++) {
+                    List<Double> totalRevenue = financialInfoDtoList.get(j).getTotalRevenue();
+                    List<Double> profitList = financialInfoDtoList.get(j).getProfit();
+
+                    // 检查列表长度是否足够
+                    if (totalRevenue.size() > i && profitList.size() > i) {
+                        income += totalRevenue.get(i);
+                        profit += profitList.get(i);
+                    } else {
+                        // 处理列表长度不足的情况，可以添加默认值或者其他处理逻辑
+                    }
+                }
+
+                date += i;
+                Predict predict = new Predict();
+                predict.aveIncome = income / financialInfoDtoList.size();
+                predict.aveProfit = profit / financialInfoDtoList.size();
+                predict.Date = String.valueOf(date);
                 predictList.add(predict);
             }
+
             result.put("data3", predictList);
 
         }catch (Exception ex){

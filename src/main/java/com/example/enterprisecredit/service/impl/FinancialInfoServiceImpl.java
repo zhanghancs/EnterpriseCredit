@@ -33,12 +33,15 @@ public class FinancialInfoServiceImpl extends ServiceImpl<FinancialInfoMapper, F
         FinancialInfo financialInfo = financialInfoMapper.selectOne(wrapper);
 //        FinancialInfo financialInfo = financialInfoMapper.selectById(stockCode);
         FinancialInfoDto financialInfoDto = new FinancialInfoDto();
+if (financialInfo!=null)
+{
+    financialInfoDto.setTotalRevenue(spiltList(financialInfo.getTotalRevenue()));
+    financialInfoDto.setTotalCost(spiltList(financialInfo.getTotalCost()));
+    financialInfoDto.setCost(spiltList(financialInfo.getCost()));
+    financialInfoDto.setExpense(spiltList(financialInfo.getExpense()));
+    financialInfoDto.setProfit(spiltList(financialInfo.getProfit()));
+}
 
-        financialInfoDto.setTotalRevenue(spiltList(financialInfo.getTotalRevenue()));
-        financialInfoDto.setTotalCost(spiltList(financialInfo.getTotalCost()));
-        financialInfoDto.setCost(spiltList(financialInfo.getCost()));
-        financialInfoDto.setExpense(spiltList(financialInfo.getExpense()));
-        financialInfoDto.setProfit(spiltList(financialInfo.getProfit()));
 
         return financialInfoDto;
 
