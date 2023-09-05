@@ -97,10 +97,10 @@ public class EnterpriseBasicInfo implements Serializable {
     private String stockholder10;
 
     @TableField("income")
-    private String income;
+    private double income;
 
     @TableField("profit")
-    private String profit;
+    private double profit;
 
     @TableField("netprofit")
     private String netProfit;
