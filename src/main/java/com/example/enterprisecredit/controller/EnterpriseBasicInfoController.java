@@ -142,10 +142,11 @@ public class EnterpriseBasicInfoController {
                     if (totalRevenue.size() > i && profitList.size() > i) {
                         income += totalRevenue.get(i);
                         profit += profitList.get(i);
-                    } else {
-                        // 处理列表长度不足的情况，可以添加默认值或者其他处理逻辑
-                        // 例如，可以在这里添加默认值，如 income += 0.0; profit += 0.0;
                     }
+//                    } else {
+//                        // 处理列表长度不足的情况，可以添加默认值或者其他处理逻辑
+//                        // 例如，可以在这里添加默认值，如 income += 0.0; profit += 0.0;
+//                    }
 
                 }
 
@@ -189,7 +190,7 @@ public class EnterpriseBasicInfoController {
             //1)调用userService的 查询单个对象的方法
             IPage<EnterpriseBasicInfo> resultList  = EnterpriseBasicInfoService.queryEnterpriseByKeyword(keyword,page,pageSize);
             result.put("status",200);
-            result.put("total", EnterpriseBasicInfoService.total);
+            result.put("total", resultList.getTotal());
             result.put("data",resultList);
 
         }catch (Exception ex){

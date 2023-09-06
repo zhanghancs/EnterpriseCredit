@@ -30,7 +30,7 @@ public interface IEnterpriseBasicInfoService extends IService<EnterpriseBasicInf
     public List<EnterpriseBasicInfo> getEnterprise(String area);
 
 
-    public List<String> getIndustry();
+//    public List<String>getIndustry();
 
     public List<EnterpriseBasicInfo> queryByIndex(String area, String transferMode, String industry);
 

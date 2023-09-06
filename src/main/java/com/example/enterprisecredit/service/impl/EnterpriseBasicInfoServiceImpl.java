@@ -27,7 +27,7 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
 
     @Autowired
     EnterpriseBasicInfoMapper enterpriseBasicInfoMapper;
-    public static long total = 0;
+//    public static long total = 0;
     @Override
     public EnterpriseBasicInfo queryEnterpriseBasicInfoByCode(int stockCode) {
         //1)封装查询条件  QueryWrapper
@@ -69,19 +69,18 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
 
     }
 
-    @Override
-    public List<String> getIndustry() {
-        QueryWrapper wrapper = new QueryWrapper();
-
-
-        //2)执行查询
-        List<String> resultList = enterpriseBasicInfoMapper.selectList(wrapper);
-
-        //3)提取查询结果
-        return resultList;
-
-
-    }
+//    @Override
+//    public List<String> getIndustry() {
+//        QueryWrapper wrapper = new QueryWrapper();
+//
+//        //2)执行查询
+//        List<String> resultList = enterpriseBasicInfoMapper.selectList(wrapper);
+//
+//        //3)提取查询结果
+//        return resultList;
+//
+//
+//    }
 
     @Override
     public List<EnterpriseBasicInfo> queryByIndex(String area, String transferMode, String industry) {
@@ -152,8 +151,7 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
         return result;
     }
 
-    public List<EnterpriseBasicInfo> query2Enterprise(int stockCode1, int stockCode2)
-    {
+    public List<EnterpriseBasicInfo> query2Enterprise(int stockCode1, int stockCode2) {
         QueryWrapper<EnterpriseBasicInfo> wrapper = new QueryWrapper<>();
         wrapper.in("stockcode", Arrays.asList(stockCode1, stockCode2));
 
@@ -163,6 +161,7 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
         return EnterpriseBasicInfoList;
 
     }
+
     @Override
     public IPage<EnterpriseBasicInfo> queryEnterpriseByKeyword(String keyword, int p, int size) {
         QueryWrapper<EnterpriseBasicInfo> wrapper = new QueryWrapper<>();
@@ -177,7 +176,7 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
         );
         Page<EnterpriseBasicInfo> page = new Page<EnterpriseBasicInfo>(p, size);
         IPage<EnterpriseBasicInfo> results = enterpriseBasicInfoMapper.selectPage(page, wrapper);
-        total = results.getTotal();
+//        total = results.getTotal();
         return results;
     }
 
