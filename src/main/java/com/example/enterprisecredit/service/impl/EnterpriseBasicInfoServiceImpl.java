@@ -92,7 +92,7 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
         }
 
         if (transferMode != null && !transferMode.equals("All")) {
-            wrapper.eq("transferMode", transferMode);
+            wrapper.eq("transfermode", transferMode);
         }
 
         if (industry != null && !industry.equals("All")) {

@@ -34,7 +34,6 @@ public interface IEnterpriseBasicInfoService extends IService<EnterpriseBasicInf
 
     public List<EnterpriseBasicInfo> queryByIndex(String area, String transferMode, String industry);
 
-
     public List<EnterpriseBasicInfo> query2Enterprise(int stockCode1, int stockCode2);
 
     public IPage<EnterpriseBasicInfo> queryEnterpriseByKeyword(String keyword, int pageNo, int pageSize);
