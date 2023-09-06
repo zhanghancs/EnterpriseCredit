@@ -87,32 +87,28 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
     public List<EnterpriseBasicInfo> queryByIndex(String area, String transferMode, String industry) {
 
         QueryWrapper wrapper = new QueryWrapper();
-        if (area != null&&area!="All") {
+        if (area != null && !area.equals("All")) {
             wrapper.eq("area", area);
         }
-        if (transferMode != null&&transferMode!="All") {
+        if (transferMode != null && !transferMode.equals("All")) {
             wrapper.eq("transferMode", transferMode);
         }
-        if (industry != null&&industry!="All") {
+        if (industry != null && !industry.equals("All")) {
             wrapper.eq("industry", industry);
         }
-
-
         //2)执行查询
-        List<EnterpriseBasicInfo> EnterpriseBasicInfo = enterpriseBasicInfoMapper.selectList(wrapper);
-        return EnterpriseBasicInfo;
+        List<EnterpriseBasicInfo> enterpriseBasicInfo = enterpriseBasicInfoMapper.selectList(wrapper);
+        return enterpriseBasicInfo;
+
     }
 
-    public List<EnterpriseBasicInfo> query2Enterprise(int stockCode1, int stockCode2)
-    {
+    public List<EnterpriseBasicInfo> query2Enterprise(int stockCode1, int stockCode2) {
         QueryWrapper<EnterpriseBasicInfo> wrapper = new QueryWrapper<>();
         wrapper.in("stockcode", Arrays.asList(stockCode1, stockCode2));
 
         // 2) 执行查询
         List<EnterpriseBasicInfo> EnterpriseBasicInfoList = enterpriseBasicInfoMapper.selectList(wrapper);
-
         return EnterpriseBasicInfoList;
-
     }
     @Override
     public IPage<EnterpriseBasicInfo> queryEnterpriseByKeyword(String keyword, int p, int size) {
@@ -123,14 +119,12 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
                         .like("name", "%" + keyword + "%")
                         .or()
                         .like("shortname", "%" + keyword + "%")
-                        .or()
-                        .like("address", "%" + keyword + "%")
+//                        .or()
+//                        .like("address", "%" + keyword + "%")
         );
         Page<EnterpriseBasicInfo> page = new Page<EnterpriseBasicInfo>(p, size);
         IPage<EnterpriseBasicInfo> results = enterpriseBasicInfoMapper.selectPage(page, wrapper);
         total = results.getTotal();
         return results;
     }
-
-
 }

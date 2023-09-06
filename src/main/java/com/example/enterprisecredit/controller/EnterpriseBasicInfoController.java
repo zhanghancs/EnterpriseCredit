@@ -40,9 +40,9 @@ public class EnterpriseBasicInfoController {
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            EnterpriseBasicInfo EnterpriseBasicInfo = EnterpriseBasicInfoService.queryEnterpriseBasicInfoByCode(stockCode);
+            EnterpriseBasicInfo enterpriseBasicInfo = EnterpriseBasicInfoService.queryEnterpriseBasicInfoByCode(stockCode);
             result.put("status",200);
-            result.put("data",EnterpriseBasicInfo);
+            result.put("data", enterpriseBasicInfo);
         }catch (Exception ex){
             result.put("status",500);
             result.put("msg","出现异常:"+ex.getMessage());
@@ -59,9 +59,7 @@ public class EnterpriseBasicInfoController {
             //1)调用userService的 查询单个对象的方法
             List<EnterpriseBasicInfo> resultList  = EnterpriseBasicInfoService.queryTop5Profits();
             result.put("status",200);
-
             result.put("data",resultList);
-
         }catch (Exception ex){
             result.put("status",500);
             result.put("msg","出现异常:"+ex.getMessage());
@@ -75,12 +73,12 @@ public class EnterpriseBasicInfoController {
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List <EnterpriseBasicInfo> EnterpriseBasicInfo = EnterpriseBasicInfoService.queryByIndex(area, transferMode, industry);
-            result.put("status",200);
-            result.put("data",EnterpriseBasicInfo);
+            List <EnterpriseBasicInfo> enterpriseBasicInfo = EnterpriseBasicInfoService.queryByIndex(area, transferMode, industry);
+            result.put("status", 200);
+            result.put("data", enterpriseBasicInfo);
         }catch (Exception ex){
             result.put("status",500);
-            result.put("msg","出现异常:"+ex.getMessage());
+            result.put("msg","出现异常:" + ex.getMessage());
             ex.printStackTrace();
         }
         return JSON.toJSONString(result);
