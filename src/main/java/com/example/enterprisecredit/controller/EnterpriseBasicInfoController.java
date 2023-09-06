@@ -125,7 +125,7 @@ public class EnterpriseBasicInfoController {
                     financialInfoDtoList.add(financialInfoService.queryByCode(Integer.parseInt(EnterpriseBasicInfo.get(i).getStockCode())));
                 }
                 Random r = new Random();
-                int num = r.nextInt(Integer.max(EnterpriseBasicInfo.size() /speed,1));
+                int num = Integer.max(EnterpriseBasicInfo.size() /speed,1);
                 i += num;
             }
 
