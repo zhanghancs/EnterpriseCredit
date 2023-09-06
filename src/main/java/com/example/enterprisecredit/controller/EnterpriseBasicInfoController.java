@@ -84,22 +84,12 @@ public class EnterpriseBasicInfoController {
         return JSON.toJSONString(result);
     }
     @RequestMapping(value="/queryByCondition")
-    public String queryByCondition(String area,String transferMode,String industry){
+    public String queryByCondition(String area,String transferMode,String industry,int speed){
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             //1)调用userService的 查询单个对象的方法
-            List <EnterpriseBasicInfo> EnterpriseBasicInfo = EnterpriseBasicInfoService.queryByIndex(area, transferMode, industry);
-            for(int i = 0; i < EnterpriseBasicInfo.size(); i++) {
-                for (int j = i + 1; j < EnterpriseBasicInfo.size(); j++) {
-                    double num1 = Double.MIN_VALUE;
-                    double num2 = Double.MIN_VALUE;
-                    num1 =EnterpriseBasicInfo.get(i).getIncome();
-                    num2 =EnterpriseBasicInfo.get(j).getIncome();
-                    if (num1 < num2) {
-                        Collections.swap(EnterpriseBasicInfo, i, j);
-                    }
-                }
-            }
+            List<List<EnterpriseBasicInfo>> Enter =EnterpriseBasicInfoService.queryTop150ByIncomeAndProfit(area, transferMode, industry);
+            List <EnterpriseBasicInfo> EnterpriseBasicInfo = Enter.get(0);
             List <Income> EnterpriseBasicInfo1 = new ArrayList<>();
             int limit = Math.min(5, EnterpriseBasicInfo.size()); // 避免越界
             for (int i = 0; i < limit; i++) {
@@ -112,18 +102,9 @@ public class EnterpriseBasicInfoController {
 
             result.put("status",200);
             result.put("data1", EnterpriseBasicInfo1);
-            for(int i = 0; i < EnterpriseBasicInfo.size(); i++) {
-                for (int j = i + 1; j < EnterpriseBasicInfo.size(); j++) {
-                    double num1 = Double.MIN_VALUE;
-                    double num2 = Double.MIN_VALUE;
-                    num1 =EnterpriseBasicInfo.get(i).getProfit();
-                    num2 =EnterpriseBasicInfo.get(j).getProfit();
-                    if (num1 < num2) {
-                        Collections.swap(EnterpriseBasicInfo, i, j);
-                    }
-                }
-            }
+
             List <Profit> EnterpriseBasicInfo2 = new ArrayList<>();
+            EnterpriseBasicInfo=Enter.get(1);
             int limit1 = Math.min(5, EnterpriseBasicInfo.size()); // 避免越界
             for (int i = 0; i < limit; i++) {
                 Profit profit =new Profit();
@@ -134,16 +115,16 @@ public class EnterpriseBasicInfoController {
             }
 
             result.put("data2", EnterpriseBasicInfo2);
-            List<FinancialInfoDto> financialInfoDtoList =new ArrayList<>();
+            List<FinancialInfoDto> financialInfoDtoList = new ArrayList<>();
 
-            for(int i=0;i<EnterpriseBasicInfo.size();i++)
-            {
+            for (int i = 0; i < EnterpriseBasicInfo.size(); i++) {
 
-                if(financialInfoService.queryByCode(Integer.parseInt(EnterpriseBasicInfo.get(i).getStockCode()))!=null)
-                {
-                    financialInfoDtoList.add(financialInfoService.queryByCode(Integer.parseInt(EnterpriseBasicInfo.get(i).getStockCode()))) ;
+                if (financialInfoService.queryByCode(Integer.parseInt(EnterpriseBasicInfo.get(i).getStockCode())) != null) {
+                    financialInfoDtoList.add(financialInfoService.queryByCode(Integer.parseInt(EnterpriseBasicInfo.get(i).getStockCode())));
                 }
-
+                Random r = new Random();
+                int num = r.nextInt(Integer.max(EnterpriseBasicInfo.size() /speed,1));
+                i += num;
             }
 
             List<Predict> predictList = new ArrayList<>();
@@ -163,7 +144,9 @@ public class EnterpriseBasicInfoController {
                         profit += profitList.get(i);
                     } else {
                         // 处理列表长度不足的情况，可以添加默认值或者其他处理逻辑
+                        // 例如，可以在这里添加默认值，如 income += 0.0; profit += 0.0;
                     }
+
                 }
 
                 date += i;
@@ -175,6 +158,7 @@ public class EnterpriseBasicInfoController {
             }
 
             result.put("data3", predictList);
+
 
         }catch (Exception ex){
             result.put("status",500);
