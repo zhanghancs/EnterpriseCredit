@@ -15,6 +15,7 @@ public class PublicInfoDto {
         this.comInfo = spiltList(publicInfo.getAdminCominfo());
         this.qualityInfo = spiltList(publicInfo.getQualityinspecinfo());
         this.webInfo = spiltList(publicInfo.getWebfilinfo());
+
     }
 
     List<String> licenInfo;
@@ -24,6 +25,7 @@ public class PublicInfoDto {
     List<String> qualityInfo;
     List<String> webInfo;
 
+
     List<String> spiltList(String old) {
         List<String> list = new ArrayList<String>();
         String[] elements = old.split("\\|");
@@ -32,6 +34,44 @@ public class PublicInfoDto {
         }
         return list;
     }
+     public Double getScore()
+    {
+        Double score = 88.0;
+
+        if(!"-".equals(this.licenInfo.get(0)))
+        {
+            score-=12*(1-1/Double.parseDouble(this.licenInfo.get(0)));
+
+        }
+        if(!"-".equals(this.penatlyInfo.get(0)))
+        {
+            score-=12*(1-1/Double.parseDouble(this.penatlyInfo.get(0)));
+
+        }
+        if(!"-".equals(this.badInfo.get(0)))
+        {
+            score-=12*(1-1/Double.parseDouble(this.badInfo.get(0)));
+
+        }
+        if(!"-".equals(this.comInfo.get(0)))
+        {
+            score+=12*(1-1/Double.parseDouble(this.comInfo.get(0)));
+
+        }
+        if(!"-".equals(this.qualityInfo.get(0)))
+        {
+            score-=12*(1-1/Double.parseDouble(this.qualityInfo.get(0)));
+
+        }
+        if(!"-".equals(this.webInfo.get(0)))
+        {
+            score-=12*(1-1/Double.parseDouble(this.getWebInfo().get(0)));
+
+        }
+
+return  score;
+    }
+
 //    public List<String> get(PublicInfo publicinfo)
 //    {
 //

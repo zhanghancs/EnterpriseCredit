@@ -2,6 +2,7 @@ package com.example.enterprisecredit.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.example.enterprisecredit.entity.EnterpriseBasicInfo;
 import com.example.enterprisecredit.entity.Industry;
 import com.example.enterprisecredit.service.impl.IndustryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,4 +50,5 @@ public class IndustryController {
         }
         return JSON.toJSONString(result);
     }
+
 }

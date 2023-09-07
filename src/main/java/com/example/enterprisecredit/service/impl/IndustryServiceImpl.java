@@ -60,4 +60,7 @@ public class IndustryServiceImpl extends ServiceImpl<IndustryMapper, Industry> i
         }
         return filteredList;
     }
+
+
+
 }
