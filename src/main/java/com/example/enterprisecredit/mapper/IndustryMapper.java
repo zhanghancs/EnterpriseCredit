@@ -23,8 +23,7 @@ public interface IndustryMapper extends BaseMapper<Industry> {
 //    List<Industry> findByArea(String area);
 //    @Select("select * from industryname")
 //    List<Industry> findAll();
-  @Select("select * from score")
-  List<Score> findsAll();
+
 
 
 }
