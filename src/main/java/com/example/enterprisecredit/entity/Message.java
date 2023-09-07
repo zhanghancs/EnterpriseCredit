@@ -2,6 +2,8 @@ package com.example.enterprisecredit.entity;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -21,9 +23,11 @@ public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableField("mydate")
     private LocalDateTime date;
 
-    private String stockcode;
+    @TableField("stockcode")
+    private String stockCode;
 
     private String shortname;
 

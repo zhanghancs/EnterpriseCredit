@@ -171,8 +171,8 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
                         .like("name", "%" + keyword + "%")
                         .or()
                         .like("shortname", "%" + keyword + "%")
-                        .or()
-                        .like("address", "%" + keyword + "%")
+//                        .or()
+//                        .like("address", "%" + keyword + "%")
         );
         Page<EnterpriseBasicInfo> page = new Page<EnterpriseBasicInfo>(p, size);
         IPage<EnterpriseBasicInfo> results = enterpriseBasicInfoMapper.selectPage(page, wrapper);
