@@ -32,7 +32,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
 
     public List<Message> queryMessage() {
         QueryWrapper wrapper = new QueryWrapper();
-        wrapper.orderByDesc("date");
+        wrapper.orderByDesc("mydate");
         wrapper.last("LIMIT 20");
         List<Message> list =messageMapper.selectList(wrapper);
         return  list;

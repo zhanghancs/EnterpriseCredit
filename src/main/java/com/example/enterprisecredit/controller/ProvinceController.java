@@ -37,6 +37,7 @@ public class ProvinceController {
                 formattedProvince.put("number", province.getNumber());
                 formattedProvince.put("profit", province.getProfit());
                 formattedProvince.put("income", province.getIncome());
+                formattedProvince.put("score", province.getScore());
                 formattedProvince.put("topTenNum", province.getTopTenNum());
                 formattedProvince.put("topTenProfit", province.getTopTenProfitDto());
                 formattedProvince.put("topTenIncome", province.getTopTenIncomeDto());
