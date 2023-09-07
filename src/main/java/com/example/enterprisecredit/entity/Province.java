@@ -28,6 +28,9 @@ public class Province {
     @TableField("income")
     private double income;
 
+    @TableField("score")
+    private double score;
+
     @TableField(exist = false)
     private List<NumDto> topTenNum;
     @TableField(exist = false)

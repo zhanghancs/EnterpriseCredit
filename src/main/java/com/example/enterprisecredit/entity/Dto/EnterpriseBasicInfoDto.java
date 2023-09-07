@@ -7,13 +7,13 @@ import java.util.List;
 @Data
 public class EnterpriseBasicInfoDto {
 
+    private int stockCode;
+
     private String creditCode;
 
     private String name;
 
     private String shortname;
-
-    private String stockCode;
 
     private String legalRepresentative;
 

@@ -126,4 +126,7 @@ public class EnterpriseBasicInfo implements Serializable {
     @TableField("netassetsyield")
     private String netAssetsYield;
 
+    @TableField("score")
+    private double score;
+
 }
