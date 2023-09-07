@@ -32,8 +32,10 @@ public class PublicInfoController {
         Map<String,Object> result = new HashMap<String,Object>();
         try{
             PublicInfoDto publicinfoDto = publicInfoService.queryByCode(stockCode);
+            Double score = publicinfoDto.getScore();
             result.put("status", 200);
             result.put("data", publicinfoDto);
+            result.put("score",score);
             result.put("msg", "成功查询");
         }catch (Exception ex){
             result.put("status",500);

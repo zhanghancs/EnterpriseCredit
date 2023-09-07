@@ -3,6 +3,9 @@ package com.example.enterprisecredit.mapper;
 import com.example.enterprisecredit.entity.Industry;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 
 /**
@@ -20,4 +23,7 @@ public interface IndustryMapper extends BaseMapper<Industry> {
 //    List<Industry> findByArea(String area);
 //    @Select("select * from industryname")
 //    List<Industry> findAll();
+
+
+
 }
