@@ -115,7 +115,7 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
     }
 
     /**
-     *
+     * 查询利润和收入前 150
      * @param area 地区
      * @param transferMode 交易方式
      * @param industry 行业
