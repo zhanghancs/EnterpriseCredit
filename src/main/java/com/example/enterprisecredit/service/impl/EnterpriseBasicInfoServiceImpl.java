@@ -27,7 +27,7 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
 
     @Autowired
     EnterpriseBasicInfoMapper enterpriseBasicInfoMapper;
-//    public static long total = 0;
+
 
     /**
      * 获取企业基本信息
@@ -83,20 +83,6 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
         return resultList;
 
     }
-
-//    @Override
-//    public List<String> getIndustry() {
-//        QueryWrapper wrapper = new QueryWrapper();
-//
-//        //2)执行查询
-//        List<String> resultList = enterpriseBasicInfoMapper.selectList(wrapper);
-//
-//        //3)提取查询结果
-//        return resultList;
-//
-//
-//    }
-
     /**
      * 索引查询
      * @param area 地区

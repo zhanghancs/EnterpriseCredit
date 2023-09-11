@@ -27,6 +27,7 @@ import java.util.Map;
 public class PublicInfoController {
      @Autowired
      PublicInfoServiceImpl publicInfoService;
+    //根据前端发送的Get请求和股票编码数据，从数据库中筛选出符合条件的公共信息数据，然后将数据进行处理，处理后发送到前端
     @GetMapping("/queryByCode")
     public String queryByCode(@RequestParam int stockCode){
         Map<String,Object> result = new HashMap<String,Object>();

@@ -30,6 +30,7 @@ import java.util.Map;
 public class IndustryController {
     @Autowired
     IndustryServiceImpl industryService;
+    //根据前端发送的Get请求，有字符表前序字母，字母表后续字母，从数据库中查找所有首字母在这之间的行业，然返回这些行业
     @GetMapping(value="/queryByAlphabet")
     public String queryByAlphabet(@RequestParam String first ,@RequestParam String last){
         Map<String,Object> result = new HashMap<String,Object>();

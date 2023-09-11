@@ -48,14 +48,6 @@ public class AttentionServiceImpl extends ServiceImpl<AttentionMapper, Attention
         return attentionMapper.delete(wrapper);
     }
 
-
-//    public List<Attention> queryAttention(Attention attention) {
-//        QueryWrapper wrapper = new QueryWrapper();
-//        wrapper.eq("username",attention.getUserName());
-//        wrapper.eq("stockcode",attention.getStockCode());
-//        return attentionMapper.selectList(wrapper);
-//    }
-
     /**
      * 查询某用户的所有关注记录
      * @param username 用户名

@@ -27,7 +27,7 @@ import java.util.Map;
 public class FinancialInfoController {
     @Autowired
     FinancialInfoServiceImpl financialInfoService;
-
+    //接收前端发送的Get请求和股票编码，根据股票编码从数据库中筛选企业财务数据，然后返回数据
     @GetMapping("/queryByCode")
     public String queryByCode(@RequestParam int stockCode) {
         Map<String,Object> result = new HashMap<String,Object>();

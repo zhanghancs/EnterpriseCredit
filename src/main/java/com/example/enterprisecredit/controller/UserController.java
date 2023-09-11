@@ -15,7 +15,7 @@ public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
-
+    //根据前端发送的Post请求和User类型的json数据，根据数据查找数据库，根据数据库的不同情况返回不同消息
     @PostMapping("/login")
     public String login(@RequestBody User user) {
         Map<String, Object> result = new HashMap<String, Object>();
@@ -42,7 +42,7 @@ public class UserController {
         }
         return JSON.toJSONString(result);
     }
-
+    //根据前端发送的Post请求和User类型的json数据，把数据录入数据库，根据数据库的不同情况返回不同消息
     @PostMapping("/register")
     public String register(@RequestBody User user) {
         Map<String, Object> result = new HashMap<String, Object>();

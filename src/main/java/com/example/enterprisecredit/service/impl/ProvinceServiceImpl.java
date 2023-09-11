@@ -56,10 +56,7 @@ public class ProvinceServiceImpl extends ServiceImpl<ProvinceMapper, Province> i
 
         return provinceList;
     }
-//    public List<Map<String, Object>> market() {
-//        String sql ="select * from market";
-//        return provinceMapper.queryUsersByCondition(sql);
-//    }
+
 
     /**
      * 获取行业信息

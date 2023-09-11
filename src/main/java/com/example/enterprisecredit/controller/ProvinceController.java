@@ -22,7 +22,7 @@ import java.util.Map;
 public class ProvinceController {
     @Autowired
     ProvinceServiceImpl provinceService;
-
+    //根据前端发送的请求，从数据库中获取所有的省份信息，同时将数据json格式化，并将其发送到前端
     @GetMapping("/queryAllProvince")
     public String queryAllProvince() {
         Map<String, Object> result = new HashMap<String, Object>();
@@ -55,6 +55,7 @@ public class ProvinceController {
         return JSON.toJSONString(result);
 
     }
+    //根据前端发送的请求，从数据库中获取所有的市场信息，并将其发送到前端
     @GetMapping("/queryAllMarket")
     public String queryAllMarket() {
         Map<String,Object> result = new HashMap<String,Object>();

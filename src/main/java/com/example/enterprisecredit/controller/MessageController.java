@@ -29,6 +29,7 @@ import java.util.Map;
 public class MessageController {
     @Autowired
     private MessageServiceImpl messageService;
+    //根据前端发送的请求，从数据库中获取最新的20条消息，并将其发送到前端
     @RequestMapping(value="/queryMessage")
     public String queryMessage(){
         Map<String,Object> result = new HashMap<String,Object>();
@@ -46,7 +47,7 @@ public class MessageController {
         }
         return JSON.toJSONString(result);
     }
-
+    //根据前端发送的请求和用户名，从数据中筛选出所有用户名符合的消息，并将其发送到前端
     @GetMapping("/queryMessageByName")
     public String queryMessageByName(@RequestParam String name) {
         Map<String,Object> result = new HashMap<String,Object>();
