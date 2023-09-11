@@ -30,6 +30,11 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     @Autowired
     AttentionMapper attentionMapper;
 
+    /**
+     * 最近的二十条公司变动信息
+     * @return 信息数组
+     */
+    @Override
     public List<Message> queryMessage() {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.orderByDesc("mydate");
@@ -38,15 +43,25 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         return  list;
     }
 
+    /**
+     * 查询用户关注的企业变动信息
+     * @param name 用户名
+     * @return 信息数组
+     */
+    @Override
     public List<MessageDto> queryMessageByName(String name) {
+        // 查询用户关注的企业
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("username", name);
+        wrapper.orderByAsc("stockcode");
         List<Attention> attentionList = attentionMapper.selectList(wrapper);
+        // 查询企业的变动信息
         List<MessageDto> messageList = new ArrayList<>();
         for (Attention attention : attentionList) {
             QueryWrapper messageWrapper = new QueryWrapper();
             messageWrapper.eq("stockcode", attention.getStockCode());
             List<Message> messages = messageMapper.selectList(messageWrapper);
+            messageWrapper.orderByDesc("mydate");
             MessageDto messageDto = new MessageDto(attention.getStockCode(), attention.getCompanyName(), messages);
             messageList.add(messageDto);
         }

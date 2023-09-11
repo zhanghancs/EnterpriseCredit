@@ -26,6 +26,12 @@ public class FinancialInfoServiceImpl extends ServiceImpl<FinancialInfoMapper, F
     @Autowired
     FinancialInfoMapper financialInfoMapper;
 
+    /**
+     * 返回某个公司的财务信息
+     * @param stockCode 公司股票代码
+     * @return 公司财务信息对象
+     */
+    @Override
     public FinancialInfoDto queryByCode(int stockCode) {
 
         QueryWrapper wrapper = new QueryWrapper();
@@ -33,19 +39,24 @@ public class FinancialInfoServiceImpl extends ServiceImpl<FinancialInfoMapper, F
         FinancialInfo financialInfo = financialInfoMapper.selectOne(wrapper);
 //        FinancialInfo financialInfo = financialInfoMapper.selectById(stockCode);
         FinancialInfoDto financialInfoDto = new FinancialInfoDto();
-if (financialInfo!=null)
-{
-    financialInfoDto.setTotalRevenue(spiltList(financialInfo.getTotalRevenue()));
-    financialInfoDto.setTotalCost(spiltList(financialInfo.getTotalCost()));
-    financialInfoDto.setCost(spiltList(financialInfo.getCost()));
-    financialInfoDto.setExpense(spiltList(financialInfo.getExpense()));
-    financialInfoDto.setProfit(spiltList(financialInfo.getProfit()));
-}
+        if (financialInfo!=null) {
+            financialInfoDto.setTotalRevenue(spiltList(financialInfo.getTotalRevenue()));
+            financialInfoDto.setTotalCost(spiltList(financialInfo.getTotalCost()));
+            financialInfoDto.setCost(spiltList(financialInfo.getCost()));
+            financialInfoDto.setExpense(spiltList(financialInfo.getExpense()));
+            financialInfoDto.setProfit(spiltList(financialInfo.getProfit()));
+        }
 
 
         return financialInfoDto;
 
     }
+
+    /**
+     * 辅助函数，将字符串分割成数组
+     * @param old 数据库中存储的原字符串
+     * @return 分割完成后的数组
+     */
     private List<Double> spiltList(String old) {
         List<Double> list = new ArrayList<Double>();
         String[] elements = old.split("\\|");

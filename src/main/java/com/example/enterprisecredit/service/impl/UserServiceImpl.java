@@ -16,6 +16,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Autowired
     UserMapper userMapper;
 
+    /**
+     * 登录
+     * @param user 用户对象
+     * @return 1 表示成功，-1 表示用户不存在，0 表示密码错误
+     */
     @Override
     public int login(User user) {
         User newUser = userMapper.selectById(user.getName());
@@ -27,6 +32,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return 0;
     }
 
+    /**
+     * 注册
+     * @param user 用户对象
+     * @return 0 表示用户已存在，1 表示注册成功
+     */
     @Override
     public int register(User user) {
         User oldUser = userMapper.selectById(user.getName());

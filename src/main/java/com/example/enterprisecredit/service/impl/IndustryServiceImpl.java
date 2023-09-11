@@ -27,6 +27,12 @@ public class IndustryServiceImpl extends ServiceImpl<IndustryMapper, Industry> i
     @Autowired
     IndustryMapper industryMapper;
 
+    /**
+     * 根据用户提供的拼音参数获取行业名
+     * @param first 起始拼音
+     * @param last 结束拼音
+     * @return 行业名数组
+     */
     public  List<Industry> queryByAlphabet(String first ,String last) {
         QueryWrapper wrapper = new QueryWrapper();
         List<Industry> industryList = industryMapper.selectList(wrapper);

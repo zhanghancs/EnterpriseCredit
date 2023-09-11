@@ -21,6 +21,13 @@ public class AttentionServiceImpl extends ServiceImpl<AttentionMapper, Attention
 
     @Autowired
     AttentionMapper attentionMapper;
+
+    /**
+     * 添加一个关注记录
+     * @param attention 一个完整的关注对象
+     * @return 返回一个 int 值， 1 表示成功关注
+     */
+    @Override
     public int insertAttention(Attention attention) {
 //        if (queryAttention(attention) != null) {
 //            return -1;
@@ -28,6 +35,12 @@ public class AttentionServiceImpl extends ServiceImpl<AttentionMapper, Attention
         return attentionMapper.insert(attention);
     }
 
+    /**
+     * 删除一个关注记录
+     * @param attention 一个关注对象，对象中的公司名可以为 null
+     * @return 返回一个 int 值， 1 表示成功取消关注
+     */
+    @Override
     public int deleteAttention(Attention attention) {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("username",attention.getUserName());
@@ -35,13 +48,20 @@ public class AttentionServiceImpl extends ServiceImpl<AttentionMapper, Attention
         return attentionMapper.delete(wrapper);
     }
 
-    public List<Attention> queryAttention(Attention attention) {
-        QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq("username",attention.getUserName());
-        wrapper.eq("stockcode",attention.getStockCode());
-        return attentionMapper.selectList(wrapper);
-    }
 
+//    public List<Attention> queryAttention(Attention attention) {
+//        QueryWrapper wrapper = new QueryWrapper();
+//        wrapper.eq("username",attention.getUserName());
+//        wrapper.eq("stockcode",attention.getStockCode());
+//        return attentionMapper.selectList(wrapper);
+//    }
+
+    /**
+     * 查询某用户的所有关注记录
+     * @param username 用户名
+     * @return 所有关注记录
+     */
+    @Override
     public List<Attention> queryByUsername(String username) {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("username", username);
