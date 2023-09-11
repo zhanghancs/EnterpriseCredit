@@ -21,6 +21,13 @@ import org.springframework.stereotype.Service;
 public class PublicInfoServiceImpl extends ServiceImpl<PublicInfoMapper, PublicInfo> implements IPublicInfoService {
     @Autowired
     PublicInfoMapper publicinfoMapper;
+
+    /**
+     * 对应企业的公共信息
+     * @param stockCode 企业股票编码
+     * @return 公共信息对象
+     */
+    @Override
     public PublicInfoDto queryByCode(int stockCode) {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("stockCode",stockCode);
