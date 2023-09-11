@@ -119,7 +119,7 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
      * @param area 地区
      * @param transferMode 交易方式
      * @param industry 行业
-     * @return
+     * @return 利润前150list，收入前150list
      */
 
     public List<List<EnterpriseBasicInfo>> queryTop150ByIncomeAndProfit(String area, String transferMode, String industry) {
