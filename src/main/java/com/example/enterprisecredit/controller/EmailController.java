@@ -29,16 +29,15 @@ public class EmailController {
 
     private final JavaMailSender javaMailSender;
 
+    //发送邮件的邮箱账号
     @Value("${spring.mail.username}")
     private String account;
 
-
+    //接收前端发送的String类型的邮件地址，然后生成一个验证码，给目标邮箱发送邮件
     @ApiOperation("发送简单邮件")
     @PostMapping("sendSimpleMail")
     public String sendSimpleMail(
             @ApiParam("收件地址") @RequestParam String address)
-    // @ApiParam("标题") @RequestParam String subject,
-    // @ApiParam("正文") @RequestParam String body)
     {
         SimpleMailMessage smm = new SimpleMailMessage();
         smm.setFrom(account);
@@ -50,7 +49,7 @@ public class EmailController {
         javaMailSender.send(smm);
         return "发送成功";
     }
-
+    //接收前端发送的String类型的邮件地址、String类型的标题、String类型的正文，和MultipartFile的附件，给目标邮箱发送带附件的邮件
     @ApiOperation("发送带附件的邮件")
     @PostMapping("sendAttachmentMail")
     public String sendAttachmentMail(

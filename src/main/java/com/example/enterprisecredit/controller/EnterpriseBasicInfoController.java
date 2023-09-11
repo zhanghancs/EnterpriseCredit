@@ -35,6 +35,8 @@ public class EnterpriseBasicInfoController {
     AttentionServiceImpl attentionService;
     @Autowired
     FinancialInfoServiceImpl financialInfoService;
+
+    //接收前端发送的int类型的股票编码，然后根据股票编码返回单个EnterpriseBasicInfo数据，或者未找到数据返回空，然后将数据返回到前端
     @RequestMapping(value="/queryEnterpriseBasicInfoByCode")
     public String queryEnterpriseBasicInfoByCode(int stockCode){
         Map<String,Object> result = new HashMap<String,Object>();
@@ -51,7 +53,7 @@ public class EnterpriseBasicInfoController {
         return JSON.toJSONString(result);
     }
 
-    //http://localhost:8080/EnterpriseBasicInfo/getEnterpriseBasicInfoprofitMax
+    //接收前端发送的查找请求，从数据库中查找利润最高的前五企业，然后返回List<EnterpriseBasicInfo>，后端将数据发送到前端
     @RequestMapping(value="/queryTop5Profits")
     public String queryTop5Profits(){
         Map<String,Object> result = new HashMap<String,Object>();
@@ -68,6 +70,7 @@ public class EnterpriseBasicInfoController {
         return JSON.toJSONString(result);
     }
 
+    //接收前端的多条件查宅请求，筛选出数据库所有满足条件的数据，返回List<EnterpriseBasicInfo>，然后将List打包封装好发送到前端
     @RequestMapping(value="/queryByIndex")
     public String queryByIndex(String area, String transferMode,String industry){
         Map<String,Object> result = new HashMap<String,Object>();
@@ -83,6 +86,7 @@ public class EnterpriseBasicInfoController {
         }
         return JSON.toJSONString(result);
     }
+    //接收前端的
     @RequestMapping(value="/queryByCondition")
     public String queryByCondition(String area,String transferMode,String industry,int speed){
         Map<String,Object> result = new HashMap<String,Object>();
