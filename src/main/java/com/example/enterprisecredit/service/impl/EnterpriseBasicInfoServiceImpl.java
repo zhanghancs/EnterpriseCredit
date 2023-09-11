@@ -114,6 +114,14 @@ public class EnterpriseBasicInfoServiceImpl extends ServiceImpl<EnterpriseBasicI
 
     }
 
+    /**
+     *
+     * @param area 地区
+     * @param transferMode 交易方式
+     * @param industry 行业
+     * @return
+     */
+
     public List<List<EnterpriseBasicInfo>> queryTop150ByIncomeAndProfit(String area, String transferMode, String industry) {
         QueryWrapper<EnterpriseBasicInfo> wrapper = new QueryWrapper<>();
 
